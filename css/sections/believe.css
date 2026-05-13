@@ -52,10 +52,10 @@
 
 .believe__sub strong { font-weight: var(--fw-semibold); }
 
-/* Small bubble — Ellipse 30 — top right */
+/* Small bubble — Ellipse 30 — top right, fully visible inside the section */
 .believe__bubble {
   position: absolute;
-  top: -3%;
+  top: 8%;
   right: 17%;
   width: clamp(60px, 7vw, 110px);
   aspect-ratio: 1 / 1;

@@ -38,14 +38,14 @@ export function initContact() {
   whenGsapReady(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Watermark — horizontal pan + slight scale as user scrolls through section
+    // Watermark — scale + subtle vertical drift on scroll (stays horizontally centered)
     const watermark = section.querySelector(".contact__watermark");
     if (watermark) {
       gsap.fromTo(
         watermark,
-        { xPercent: -45, scale: 0.96 },
+        { y: 30, scale: 0.97 },
         {
-          xPercent: -55,
+          y: -30,
           scale: 1.04,
           ease: "none",
           scrollTrigger: {
@@ -64,17 +64,7 @@ export function initContact() {
       opacity: 0,
       duration: 1.1,
       ease: "power3.out",
-      scrollTrigger: { trigger: section, start: "top 70%" },
-    });
-
-    // Topic rows stagger
-    gsap.from(".contact__topic", {
-      x: -30,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: "power3.out",
-      scrollTrigger: { trigger: ".contact__topics", start: "top 80%" },
+      scrollTrigger: { trigger: section, start: "top 80%" },
     });
   });
 }

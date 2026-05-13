@@ -16,18 +16,18 @@
   max-width: var(--container-max);
   margin-inline: auto;
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   align-items: center;
-  gap: clamp(40px, 5vw, 96px);
+  gap: clamp(40px, 5vw, 80px);
   min-height: 700px;
 }
 
-/* ---- Giant BiSSMiXi watermark behind ---- */
+/* ---- Giant BiSSMiXi watermark — sits at the bottom of the section ---- */
 .contact__watermark {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  bottom: -8%;
+  transform: translateX(-50%);
   font-family: var(--font-heading);
   font-weight: var(--fw-bold);
   font-size: clamp(180px, 33vw, 560px);
@@ -39,9 +39,9 @@
   z-index: 0;
   background: linear-gradient(
     90deg,
-    rgba(218, 201, 255, 0.18) 0%,
-    rgba(159, 164, 254, 0.18) 78.9%,
-    rgba(186, 176, 250, 0.18) 100%
+    rgba(218, 201, 255, 0.28) 0%,
+    rgba(159, 164, 254, 0.28) 78.9%,
+    rgba(186, 176, 250, 0.28) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -55,8 +55,10 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 795px;
-  padding: clamp(36px, 4.5vw, 77px) clamp(28px, 3.9vw, 67px);
+  max-width: 820px;
+  /* Equal horizontal padding on left and right */
+  padding-block: clamp(36px, 4.5vw, 77px);
+  padding-inline: clamp(36px, 4.5vw, 67px);
   border-radius: 33px;
   background: rgba(255, 255, 255, 0.57);
   -webkit-backdrop-filter: blur(17px);
@@ -74,13 +76,28 @@
   gap: clamp(24px, 2.8vw, 44px);
 }
 
+/* Inner block: EMAIL eyebrow + email link, with proper gap between them */
+.contact__email-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 1.8vw, 26px);
+}
+
 .contact__eyebrow {
+  display: inline-block;
   font-family: var(--font-body);
+  font-weight: var(--fw-regular);
   font-size: clamp(15px, 1.25vw, 21px);
   letter-spacing: 0.4em;
   line-height: 0.834;
   text-transform: uppercase;
-  background: var(--gradient-primary);
+  /* Saturated mid-tone gradient so the text reads against the light card */
+  background: linear-gradient(
+    90deg,
+    #a892f0 0%,
+    #6b71f3 60%,
+    #8d80ee 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -88,8 +105,9 @@
 }
 
 .contact__email-link {
-  font-family: var(--font-heading);
-  font-weight: var(--fw-semibold);
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-weight: 600;
+  font-style: normal;
   font-size: clamp(36px, 3.7vw, 63px);
   line-height: 0.94;
   color: var(--color-background);
@@ -122,8 +140,10 @@
 
 .contact__topic {
   display: grid;
-  grid-template-columns: minmax(140px, 176px) 1fr;
-  gap: clamp(20px, 2.5vw, 33px);
+  /* Fixed label column wide enough for "Collaborations" with breathing room
+     so every body row starts at the same x-position */
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 28px;
   align-items: baseline;
   color: var(--color-background);
   transition: opacity var(--duration-fast);
@@ -132,16 +152,27 @@
 .contact__topic:hover { opacity: 0.7; }
 
 .contact__topic-label {
-  font-family: var(--font-heading);
-  font-weight: var(--fw-semibold);
-  font-size: clamp(22px, 1.9vw, 30px);
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(22px, 1.8vw, 28px);
   line-height: 0.94;
 }
 
 .contact__topic-body {
   font-family: var(--font-body);
-  font-size: clamp(14px, 1.1vw, 17px);
+  font-weight: var(--fw-regular);
+  font-size: clamp(13px, 0.95vw, 15px);
   line-height: 1.4;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* Allow wrapping on small viewports so text never gets cut off */
+@media (max-width: 900px) {
+  .contact__topic-body {
+    white-space: normal;
+  }
 }
 
 .contact__response {
