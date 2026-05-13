@@ -1,0 +1,207 @@
+/* ==========================================================================
+   Design Tokens — Bissmixi
+   Source of truth for every color, font, size, spacing, radius & shadow.
+   Update values here; never hard-code in section files.
+   ========================================================================== */
+
+:root {
+  /* ----- Colors ----- */
+  --color-white: #ffffff;
+  --color-light-01: #f2f2fe;
+  --color-light-02: #e8e7fe;
+  --color-background: #191a24;
+  --color-secondary: #dac9ff;
+
+  /* Primary gradient stops (also exposed individually for granular use) */
+  --color-primary-1: #dac9ff;
+  --color-primary-2: #9fa4fe;
+  --color-primary-3: #bab0fa;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(
+    90deg,
+    #dac9ff 0%,
+    #9fa4fe 79%,
+    #bab0fa 100%
+  );
+
+  /* Text colors (placeholders — will refine when scanning sections) */
+  --color-text-primary: #191a24;       /* on light backgrounds */
+  --color-text-on-dark: #ffffff;       /* on dark backgrounds */
+  --color-text-muted: rgba(25, 26, 36, 0.7);
+
+  /* ----- Typography ----- */
+  --font-heading: "Cormorant Garamond", "Times New Roman", serif;
+  --font-body: "Givonic", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Font weights */
+  --fw-thin: 100;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  /* Type scale — fluid (clamp) for responsive without media queries.
+     Min = ~mobile size, Max = 1728px desktop size.
+     Refine per section when extracting exact Figma values. */
+  --fs-h1: clamp(2.5rem, 5.5vw, 6rem);          /* up to ~96px */
+  --fs-h2: clamp(2rem, 4vw, 4.5rem);            /* up to ~72px */
+  --fs-h3: clamp(1.5rem, 2.8vw, 3rem);          /* up to ~48px */
+  --fs-h4: clamp(1.25rem, 2vw, 2rem);           /* up to ~32px */
+  --fs-h5: clamp(1.125rem, 1.6vw, 1.5rem);      /* up to ~24px */
+  --fs-h6: clamp(1rem, 1.3vw, 1.25rem);         /* up to ~20px */
+  --fs-body-lg: clamp(1rem, 1.2vw, 1.25rem);    /* up to ~20px */
+  --fs-body: clamp(0.9375rem, 1vw, 1.125rem);   /* up to ~18px */
+  --fs-body-sm: clamp(0.8125rem, 0.85vw, 0.9375rem); /* up to ~15px */
+  --fs-caption: clamp(0.75rem, 0.75vw, 0.8125rem);
+
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.7;
+
+  /* Letter spacing */
+  --ls-tight: -0.02em;
+  --ls-normal: 0;
+  --ls-wide: 0.04em;
+  --ls-wider: 0.08em;
+
+  /* ----- Spacing scale (4-based) ----- */
+  --space-1: 0.25rem;   /* 4 */
+  --space-2: 0.5rem;    /* 8 */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.25rem;   /* 20 */
+  --space-6: 1.5rem;    /* 24 */
+  --space-8: 2rem;      /* 32 */
+  --space-10: 2.5rem;   /* 40 */
+  --space-12: 3rem;     /* 48 */
+  --space-16: 4rem;     /* 64 */
+  --space-20: 5rem;     /* 80 */
+  --space-24: 6rem;     /* 96 */
+  --space-32: 8rem;     /* 128 */
+  --space-40: 10rem;    /* 160 */
+
+  /* ----- Layout ----- */
+  --frame-width: 1728px;
+  --container-max: 1650px;
+  --container-padding: clamp(1rem, 3vw, 2.5rem);
+
+  /* ----- Border radius ----- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 22px;       /* from corner-radius 22.18 seen in Figma */
+  --radius-xl: 32px;
+  --radius-2xl: 48px;
+  --radius-pill: 999px;
+  --radius-full: 50%;
+
+  /* ----- Shadows ----- */
+  --shadow-sm: 0 1px 2px rgba(25, 26, 36, 0.06);
+  --shadow-md: 0 4px 12px rgba(25, 26, 36, 0.08);
+  --shadow-lg: 0 12px 32px rgba(25, 26, 36, 0.12);
+  --shadow-xl: 0 24px 64px rgba(25, 26, 36, 0.18);
+
+  /* ----- Motion ----- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+
+  /* ----- Breakpoints (for reference in JS / @media via custom-media polyfills) ----- */
+  --bp-xs: 480px;
+  --bp-sm: 768px;
+  --bp-md: 1024px;
+  --bp-lg: 1280px;
+  --bp-xl: 1440px;
+  --bp-2xl: 1728px;
+
+  /* ----- Z-index scale ----- */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+
+  /* ==========================================================================
+     Reusable component tokens — Glass Pill (header CTA, etc.)
+     These are reused across the site (Submit Your Product, future CTAs).
+     ========================================================================== */
+  --pill-bg: rgba(255, 255, 255, 0.22);
+  --pill-bg-hover: rgba(255, 255, 255, 0.38);
+  --pill-bg-scrolled: rgba(255, 255, 255, 0.55);
+  --pill-blur: 18px;
+  --pill-border: 1px solid rgba(255, 255, 255, 0.35);
+  --pill-radius: 100px;
+  --pill-height: 64px;
+  --pill-padding-y: 16px;
+  --pill-padding-x: 36px;
+  --pill-padding-x-end: 7px;       /* tight side when there's a circle icon */
+  --pill-gap: 34px;
+  --pill-font-size: 17px;
+  --pill-font-weight: var(--fw-regular);
+  --pill-icon-size: 52px;          /* circular arrow inside pill */
+  --pill-text-color: var(--color-background);
+
+  /* Nav-pill specific overrides */
+  --navpill-width: 662px;
+  --navpill-gap: 50px;
+  --navpill-padding-y: 16px;
+  --navpill-padding-x: 32px;
+  --nav-item-font-size: 17px;
+
+  /* Logo */
+  --logo-font-size: 45px;
+  --logo-letter-spacing: -3.6px;
+
+  /* Header layout */
+  --header-padding-y: 40px;
+  --header-padding-y-scrolled: 16px;
+
+  /* ----- Hero section ----- */
+  --hero-bg: var(--color-light-01);
+  --hero-min-height: 100vh;
+  --hero-headline-fs: clamp(3.5rem, 9.5vw, 155px);
+  --hero-headline-fs-italic: clamp(3.25rem, 8.7vw, 142px);
+  --hero-headline-tracking: clamp(-4px, -0.66vw, -11.36px);
+  --hero-headline-leading: 0.9;
+  --hero-subhead-fs: clamp(1rem, 1.35vw, 22px);
+  --hero-subhead-width: 810px;
+  --hero-content-gap: clamp(2rem, 4vw, 64px);
+  --hero-scroll-btn-size: 139px;
+  --hero-scroll-btn-border: 1.5px;
+  --hero-watermark-fs: clamp(140px, 23vw, 402px);
+  --hero-watermark-tracking: -0.04em;
+
+  /* ----- Showcase (pinned horizontal scroll) ----- */
+  --showcase-panels: 3;
+  --showcase-bg: var(--color-light-01);
+
+  /* ----- Generic section tokens (reused 4-14) ----- */
+  --eyebrow-fs: clamp(12px, 0.9vw, 15px);
+  --eyebrow-letter-spacing: 0.32em;
+  --section-heading-fs: clamp(2.25rem, 3.6vw, 64px);
+  --section-heading-fs-lg: clamp(3rem, 5vw, 88px);
+  --section-body-fs: clamp(15px, 1.05vw, 18px);
+  --section-padding-y: clamp(80px, 9vw, 160px);
+
+  /* Card surfaces */
+  --card-radius: 28px;
+  --card-radius-lg: 40px;
+
+  /* ----- Figma exact section tokens (sections 4-9) ----- */
+  --eyebrow-fs-lg: clamp(16px, 1.6vw, 28px);
+  --eyebrow-tracking: 0.4em;
+  --headline-fs-xl: clamp(40px, 4.4vw, 75px);
+  --headline-tracking: -0.08em;
+  --headline-leading: 0.94;
+  --body-fs-lg: clamp(16px, 1.5vw, 26px);
+  --body-leading: 1.4;
+  --section-pad-x: clamp(20px, 2.3vw, 40px);
+}

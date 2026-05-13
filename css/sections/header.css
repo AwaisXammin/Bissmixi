@@ -1,0 +1,245 @@
+/* ==========================================================================
+   Section: Header / Navigation
+   - Sticky on scroll with refined glass background
+   - Logo (Cormorant Garamond, letter-spaced)
+   - Center glass nav pill with active gradient underline
+   - Submit Your Product glass CTA pill with rotating circle arrow
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+  padding-block: var(--header-padding-y);
+  transition:
+    padding-block var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    backdrop-filter var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+  background-color: transparent;
+}
+
+/* Sticky-scrolled state */
+.site-header.is-scrolled {
+  padding-block: var(--header-padding-y-scrolled);
+  background-color: rgba(242, 242, 254, 0.55);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 0 rgba(25, 26, 36, 0.06);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+/* ============================================================
+   Logo
+   ============================================================ */
+.site-logo {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-semibold);
+  font-size: var(--logo-font-size);
+  letter-spacing: var(--logo-letter-spacing);
+  color: var(--color-background);
+  line-height: 1;
+  text-transform: capitalize;
+  display: inline-flex;
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.site-logo:hover { opacity: 1; } /* override global a:hover */
+
+.site-logo__letters {
+  display: inline-flex;
+}
+
+.site-logo__char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40%);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-background) 0%,
+    var(--color-background) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--color-background);
+  transition: background-position var(--duration-slow) var(--ease-out);
+}
+
+/* Hover: animate gradient shimmer across letters */
+.site-logo:hover .site-logo__char {
+  background-image: var(--gradient-primary);
+  -webkit-text-fill-color: transparent;
+  background-position: 0 0;
+}
+
+/* ============================================================
+   Center nav pill (glass)
+   ============================================================ */
+.nav-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navpill-gap);
+  width: var(--navpill-width);
+  padding: var(--navpill-padding-y) var(--navpill-padding-x);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(var(--pill-blur)) saturate(180%);
+  backdrop-filter: blur(var(--pill-blur)) saturate(180%);
+  border: var(--pill-border);
+  border-radius: var(--pill-radius);
+  flex-shrink: 0;
+  transition: background var(--duration-base) var(--ease-out);
+}
+
+.nav-pill__list {
+  display: contents; /* keep semantic <ul> without changing layout */
+}
+
+.nav-pill__item {
+  position: relative;
+}
+
+.nav-pill__link {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--nav-item-font-size);
+  color: var(--color-background);
+  text-transform: capitalize;
+  white-space: nowrap;
+  padding-block: 4px;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+/* Gradient underline — drawn with ::after, animates in from left */
+.nav-pill__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 100%;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-pill);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.nav-pill__link:hover::after,
+.nav-pill__link.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav-pill__link:hover { opacity: 1; }
+
+/* ============================================================
+   Submit Your Product — reusable glass pill CTA
+   ============================================================ */
+.pill-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pill-gap);
+  height: var(--pill-height);
+  padding: var(--pill-padding-y) var(--pill-padding-x-end) var(--pill-padding-y) var(--pill-padding-x);
+  background: var(--pill-bg);
+  -webkit-backdrop-filter: blur(var(--pill-blur)) saturate(180%);
+  backdrop-filter: blur(var(--pill-blur)) saturate(180%);
+  border: var(--pill-border);
+  border-radius: var(--pill-radius);
+  font-family: var(--font-body);
+  font-weight: var(--pill-font-weight);
+  font-size: var(--pill-font-size);
+  color: var(--pill-text-color);
+  text-transform: capitalize;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.pill-cta:hover {
+  background: var(--pill-bg-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(25, 26, 36, 0.12);
+  opacity: 1;
+}
+
+.pill-cta:active { transform: translateY(0); }
+
+.pill-cta__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pill-icon-size);
+  height: var(--pill-icon-size);
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  color: var(--color-white);
+  flex-shrink: 0;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.pill-cta:hover .pill-cta__icon {
+  transform: rotate(45deg);
+}
+
+.pill-cta__icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1280px) {
+  :root {
+    --logo-font-size: 38px;
+    --navpill-width: 560px;
+    --navpill-gap: 36px;
+    --pill-height: 56px;
+    --pill-padding-x: 28px;
+    --pill-icon-size: 44px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --logo-font-size: 32px;
+    --navpill-width: auto;
+    --navpill-gap: 24px;
+    --navpill-padding-x: 24px;
+  }
+
+  .pill-cta__label { display: none; }
+  .pill-cta { padding-inline: 8px; gap: 0; }
+}
+
+@media (max-width: 768px) {
+  .nav-pill { display: none; }
+  .site-header__inner { justify-content: space-between; }
+}

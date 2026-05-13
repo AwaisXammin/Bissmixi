@@ -1,0 +1,353 @@
+/* ==========================================================================
+   Section: Hero
+   Layers (back → front):
+     1. Background color (#F2F2FE)
+     2. Big gradient blob (Group 211 — purple radial)
+     3. Perspective grid (faint white lines)
+     4. Glass squares (Shades — Group 208)
+     5. Floating water bubbles (Frame 7 — Ellipse 33/34/35)
+     6. Lavender flower image (right side, scroll parallax)
+     7. Giant BiSSMiXi watermark text (bottom, gradient, very low opacity)
+     8. Hero content (heading, paragraph, circle scroll button) — top layer
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: var(--hero-min-height);
+  background-color: var(--hero-bg);
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: clamp(8rem, 14vw, 14rem) clamp(6rem, 10vw, 10rem);
+}
+
+/* ============================================================
+   Background layers
+   ============================================================ */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 1 — Gradient blob */
+.hero__blob {
+  position: absolute;
+  top: -42%;
+  left: -8%;
+  width: 116%;
+  height: 180%;
+  z-index: 0;
+  will-change: transform;
+}
+
+.hero__blob img,
+.hero__blob svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* 2 — Perspective grid */
+.hero__grid {
+  position: absolute;
+  inset: -9% auto auto 0;
+  width: 100%;
+  max-width: 1727px;
+  aspect-ratio: 1 / 1;
+  opacity: 0.84;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+.hero__grid img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 3 — Glass squares (Shades) */
+.hero__shades {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.hero__shade {
+  position: absolute;
+  width: 75px;
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0.67;
+}
+
+.hero__shade--1 { left: 13%;  top: 38%;  background: rgba(255, 255, 255, 0.08); }
+.hero__shade--2 { left: 26%;  top: 0%;   background: rgba(255, 255, 255, 0.12); }
+.hero__shade--3 { left: 48%;  top: 19%;  background: rgba(255, 255, 255, 0.12); }
+.hero__shade--4 { left: 87%;  top: 38%;  background: rgba(255, 255, 255, 0.10); }
+.hero__shade--5 { left: 87%;  top: 5%;   background: rgba(255, 255, 255, 0.12); }
+
+/* 4 — Floating water bubbles */
+.hero__bubbles {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.hero__bubble {
+  position: absolute;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+    inset 6px 6px 18px rgba(255, 255, 255, 0.45),
+    0 6px 24px rgba(143, 130, 220, 0.18);
+  will-change: transform;
+}
+
+.hero__bubble--lg { width: 85px; height: 85px; right: 16%;  top: 32%; }
+.hero__bubble--md { width: 47px; height: 47px; right: 15%;  top: 55%; }
+.hero__bubble--sm { width: 28px; height: 28px; right: 22%;  top: 65%; }
+
+/* 5 — Lavender flower */
+.hero__lavender {
+  position: absolute;
+  right: 18%;
+  bottom: -6%;
+  width: clamp(120px, 14vw, 264px);
+  z-index: 4;
+  transform: rotate(11.94deg);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero__lavender img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 30px 40px rgba(80, 60, 150, 0.18));
+}
+
+/* 6 — Giant BiSSMiXi watermark */
+.hero__watermark {
+  position: absolute;
+  left: 50%;
+  bottom: -8%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-weight: var(--fw-bold);
+  font-size: var(--hero-watermark-fs);
+  letter-spacing: var(--hero-watermark-tracking);
+  line-height: 1;
+  white-space: nowrap;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+
+  /* Low-opacity gradient text */
+  background: linear-gradient(
+    90deg,
+    rgba(218, 201, 255, 0.18) 0%,
+    rgba(159, 164, 254, 0.18) 79%,
+    rgba(186, 176, 250, 0.18) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   Hero content
+   ============================================================ */
+.hero__content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--hero-content-gap);
+  text-align: center;
+  width: 100%;
+}
+
+.hero__headline {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-semibold);
+  color: var(--color-background);
+  text-align: center;
+  letter-spacing: var(--hero-headline-tracking);
+  line-height: var(--hero-headline-leading);
+  margin: 0;
+  max-width: 100%;
+}
+
+.hero__headline-line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero__headline-word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Line 1 — "Refined Discovery," in Givonic Thin */
+.hero__headline-line--1 .hero__headline-word {
+  font-family: var(--font-body);
+  font-weight: var(--fw-thin);
+  font-size: var(--hero-headline-fs);
+  line-height: 1;
+}
+
+/* Line 2 — "Designed for Better Choices" in Cormorant Garamond */
+.hero__headline-line--2 .hero__headline-word {
+  font-family: var(--font-heading);
+  font-size: var(--hero-headline-fs-italic);
+  line-height: 1;
+}
+
+/* Italic portion */
+.hero__headline-word--italic {
+  font-style: italic;
+  font-weight: var(--fw-bold);
+}
+
+/* Paragraph */
+.hero__subhead {
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--hero-subhead-fs);
+  line-height: 1.45;
+  color: var(--color-background);
+  max-width: var(--hero-subhead-width);
+  text-align: center;
+}
+
+.hero__subhead strong {
+  font-weight: var(--fw-semibold);
+}
+
+/* Circle scroll button */
+.hero__scroll-btn {
+  --size: var(--hero-scroll-btn-size);
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--radius-full);
+  border: var(--hero-scroll-btn-border) solid var(--color-background);
+  background: transparent;
+  color: var(--color-background);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition:
+    background var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.hero__scroll-btn:hover {
+  background: var(--color-background);
+  color: var(--color-white);
+  transform: scale(1.05);
+  box-shadow: 0 16px 40px rgba(25, 26, 36, 0.25);
+}
+
+.hero__scroll-btn svg {
+  width: 28px;
+  height: 28px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.hero__scroll-btn:hover svg {
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   Float / drift keyframes for bubbles
+   ============================================================ */
+@keyframes bubble-float-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(-8px, -14px, 0); }
+}
+@keyframes bubble-float-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(10px, -18px, 0); }
+}
+@keyframes bubble-float-c {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(-6px, 10px, 0); }
+}
+
+.hero__bubble--lg { animation: bubble-float-a 7s var(--ease-in-out) infinite; }
+.hero__bubble--md { animation: bubble-float-b 9s var(--ease-in-out) infinite; }
+.hero__bubble--sm { animation: bubble-float-c 6s var(--ease-in-out) infinite; }
+
+/* Gentle blob drift */
+@keyframes blob-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(2%, 1%, 0) scale(1.04); }
+}
+
+.hero__blob { animation: blob-drift 18s var(--ease-in-out) infinite; }
+
+/* Lavender sway */
+@keyframes lavender-sway {
+  0%, 100% { transform: rotate(11.94deg) translateY(0); }
+  50%      { transform: rotate(9deg) translateY(-8px); }
+}
+
+.hero__lavender { animation: lavender-sway 8s var(--ease-in-out) infinite; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1280px) {
+  .hero__bubble--lg { width: 70px; height: 70px; }
+  .hero__bubble--md { width: 38px; height: 38px; }
+  .hero__bubble--sm { width: 22px; height: 22px; }
+}
+
+@media (max-width: 768px) {
+  .hero__shade,
+  .hero__bubble--sm { display: none; }
+
+  .hero__lavender { right: 4%; width: 110px; }
+
+  .hero__watermark {
+    bottom: -4%;
+    font-size: clamp(80px, 26vw, 200px);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__bubble--md { right: 8%; }
+  .hero__bubble--lg { right: 8%; }
+}
+
+/* Disable heavy looping motion for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .hero__bubble--lg,
+  .hero__bubble--md,
+  .hero__bubble--sm,
+  .hero__blob,
+  .hero__lavender {
+    animation: none !important;
+  }
+}

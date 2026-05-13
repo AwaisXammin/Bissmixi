@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#191A24" />
+    <meta
+      name="description"
+      content="BiSSMixi — Refined design and digital services that stand out in design, function and craft."
+    />
+
+    <title>BiSSMixi</title>
+
+    <!-- Favicon (placeholder — replace with real asset) -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg" />
+
+    <!-- Preconnect to Google Fonts for faster CG load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload Givonic Regular & SemiBold (most-used weights) for snappier first paint -->
+    <link
+      rel="preload"
+      href="assets/fonts/Givonic-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/Givonic-SemiBold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+
+    <!-- Global stylesheet (imports variables + reset + base + utilities) -->
+    <link rel="stylesheet" href="css/globals.css" />
+
+    <!-- Section stylesheets (appended as sections are built) -->
+    <link rel="stylesheet" href="css/sections/header.css" />
+    <link rel="stylesheet" href="css/sections/hero.css" />
+    <link rel="stylesheet" href="css/sections/showcase.css" />
+    <link rel="stylesheet" href="css/sections/about.css" />
+    <link rel="stylesheet" href="css/sections/about01.css" />
+    <link rel="stylesheet" href="css/sections/about02.css" />
+    <link rel="stylesheet" href="css/sections/believe.css" />
+    <link rel="stylesheet" href="css/sections/brands.css" />
+    <link rel="stylesheet" href="css/sections/discoveries.css" />
+    <link rel="stylesheet" href="css/sections/marquee.css" />
+    <link rel="stylesheet" href="css/sections/contact.css" />
+    <link rel="stylesheet" href="css/sections/footer.css" />
+  </head>
+
+  <body>
+    <!-- ===== Header / Navigation ===== -->
+    <header class="site-header" role="banner">
+      <div class="container site-header__inner">
+        <a href="#hero" class="site-logo" aria-label="BiSSMixi — Home">
+          <span class="site-logo__letters">BiSSMixi</span>
+        </a>
+
+        <nav class="nav-pill" aria-label="Primary">
+          <ul class="nav-pill__list">
+            <li class="nav-pill__item">
+              <a href="#hero" class="nav-pill__link is-active">Home</a>
+            </li>
+            <li class="nav-pill__item">
+              <a href="#about" class="nav-pill__link">About us</a>
+            </li>
+            <li class="nav-pill__item">
+              <a href="#discover" class="nav-pill__link">Discover</a>
+            </li>
+            <li class="nav-pill__item">
+              <a href="#for-brands" class="nav-pill__link">For Brands</a>
+            </li>
+            <li class="nav-pill__item">
+              <a href="#contact" class="nav-pill__link">Contact Us</a>
+            </li>
+          </ul>
+        </nav>
+
+        <a href="#submit" class="pill-cta" aria-label="Submit Your Product">
+          <span class="pill-cta__label">Submit Your Product</span>
+          <span class="pill-cta__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 17 17 7" />
+              <path d="M8 7h9v9" />
+            </svg>
+          </span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Page content — sections appended here in build order -->
+    <main id="main">
+      <!-- ===== Hero ===== -->
+      <section id="hero" class="hero" aria-label="Hero">
+        <!-- Background layers -->
+        <div class="hero__bg" aria-hidden="true">
+          <div class="hero__blob">
+            <img src="assets/images/hero-gradient-blob.svg" alt="" />
+          </div>
+
+          <div class="hero__grid">
+            <img src="assets/images/hero-grid.svg" alt="" />
+          </div>
+
+          <div class="hero__shades">
+            <span class="hero__shade hero__shade--1"></span>
+            <span class="hero__shade hero__shade--2"></span>
+            <span class="hero__shade hero__shade--3"></span>
+            <span class="hero__shade hero__shade--4"></span>
+            <span class="hero__shade hero__shade--5"></span>
+          </div>
+
+          <div class="hero__bubbles">
+            <span class="hero__bubble hero__bubble--lg"></span>
+            <span class="hero__bubble hero__bubble--md"></span>
+            <span class="hero__bubble hero__bubble--sm"></span>
+          </div>
+
+          <div class="hero__lavender">
+            <img src="assets/images/hero-lavender.png" alt="" />
+          </div>
+
+          <div class="hero__watermark">BiSSMiXi</div>
+        </div>
+
+        <!-- Content -->
+        <div class="container hero__content">
+          <h1 class="hero__headline">
+            <span class="hero__headline-line hero__headline-line--1">
+              <span class="hero__headline-word">Refined</span>
+              <span class="hero__headline-word">Discovery,</span>
+            </span>
+            <span class="hero__headline-line hero__headline-line--2">
+              <span class="hero__headline-word">Designed</span>
+              <span class="hero__headline-word hero__headline-word--italic">for</span>
+              <span class="hero__headline-word hero__headline-word--italic">Better</span>
+              <span class="hero__headline-word hero__headline-word--italic">Choices</span>
+            </span>
+          </h1>
+
+          <p class="hero__subhead">
+            In a world full of <strong>choices</strong>, We simplify discovery by
+            presenting only <strong>Products &amp; Services</strong> that truly
+            stand out — in
+            <strong>Design, Functionality, Quality</strong> and
+            <strong>Values.</strong>
+          </p>
+
+          <button
+            type="button"
+            class="hero__scroll-btn"
+            aria-label="Scroll to next section"
+          >
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 17 17 7" />
+              <path d="M8 7h9v9" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===== Showcase — pinned horizontal scroll ===== -->
+      <section
+        id="showcase"
+        class="showcase"
+        aria-label="Product showcase"
+        aria-roledescription="horizontal scroller"
+      >
+        <div class="showcase__viewport">
+          <div class="showcase__track">
+            <div class="showcase__panel" aria-roledescription="slide" aria-label="1 of 3">
+              <img
+                class="showcase__panel-img"
+                src="assets/images/showcase-1.png"
+                alt="Refined Discovery — featured product 1"
+              />
+            </div>
+            <div class="showcase__panel" aria-roledescription="slide" aria-label="2 of 3">
+              <img
+                class="showcase__panel-img"
+                src="assets/images/showcase-2.png"
+                alt="Refined Discovery — featured product 2"
+              />
+            </div>
+            <div class="showcase__panel" aria-roledescription="slide" aria-label="3 of 3">
+              <img
+                class="showcase__panel-img"
+                src="assets/images/showcase-3.png"
+                alt="Refined Discovery — featured product 3"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== About ===== -->
+      <section id="about" class="about" aria-label="About BiSSMiXi">
+        <div class="about__inner">
+          <p class="about__eyebrow">About</p>
+          <h2 class="about__heading">
+            BiSSMiXi is about Refined Discovery —
+            <span class="about__heading-accent">Where Selection is</span>
+            Intentional, and Every Product &amp; Service is Chosen to Stand out.
+          </h2>
+        </div>
+        <div class="about__saturn" aria-hidden="true">
+          <img src="assets/images/decor-saturn.png" alt="" />
+        </div>
+      </section>
+
+      <!-- ===== About 01 — Endless Options + Curated cards ===== -->
+      <section id="about01" class="about01" aria-label="Endless options">
+        <div class="about01__inner">
+          <div class="about01__indicator" aria-hidden="true">
+            <span class="about01__line about01__line--left"></span>
+            <span class="about01__num">01</span>
+            <span class="about01__line about01__line--right"></span>
+          </div>
+
+          <h2 class="about01__heading">
+            In a world filled with endless options, finding the right
+            <strong>Products &amp; Services</strong> is no longer simple.
+          </h2>
+          <p class="about01__sub">
+            The abundance of <strong>choices</strong> often creates more
+            <strong>confusion</strong> than clarity.
+          </p>
+
+          <div class="about01__stage">
+            <div class="about01__spotlight" aria-hidden="true"></div>
+
+            <div class="about01__card about01__card--prev" data-index="0">
+              <img src="assets/images/curated-1.png" alt="Curation No. 01" />
+              <span class="about01__card-label">Curation No. 01</span>
+            </div>
+            <div class="about01__card is-active" data-index="1">
+              <img src="assets/images/curated-2.png" alt="Curation No. 02" />
+              <span class="about01__card-label">Curation No. 02</span>
+            </div>
+            <div class="about01__card about01__card--next" data-index="2">
+              <img src="assets/images/curated-3.png" alt="Curation No. 03" />
+              <span class="about01__card-label">Curation No. 03</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== About 02 — Step In + Selection Process + Simplify ===== -->
+      <section id="about02" class="about02" aria-label="Selection process">
+        <div class="about02__inner">
+          <div class="about02__indicator" aria-hidden="true">
+            <span class="about02__line about02__line--left"></span>
+            <span class="about02__num">02</span>
+            <span class="about02__line about02__line--right"></span>
+          </div>
+
+          <div class="about02__stepin">
+            <h2 class="about02__stepin-title">That's where We step in.</h2>
+            <p class="about02__stepin-sub">
+              We don't aim to <strong>show more</strong> —<br />
+              We aim to <strong>show better.</strong>
+            </p>
+          </div>
+
+          <div class="about02__process">
+            <div class="about02__process-text">
+              <h2 class="about02__process-heading">
+                At BiSSMiXi, Every Product &amp; Services goes through a
+                Thoughtful <em>Selection Process.</em>
+              </h2>
+              <p class="about02__process-body">
+                We look beyond <strong>trends</strong> and surface-level appeal,
+                focusing instead on what <strong>truly matters</strong> —
+                <strong>design, functionality, usability,</strong> and overall
+                value.
+              </p>
+              <p class="about02__process-body">
+                Our role is to <strong>filter</strong> the noise.
+              </p>
+            </div>
+            <div class="about02__process-visual" aria-hidden="true">
+              <div class="about02__bg-gradient">
+                <img src="assets/images/about-bg-gradient.svg" alt="" />
+              </div>
+              <img
+                class="about02__process-img"
+                src="assets/images/process-glass.png"
+                alt=""
+              />
+            </div>
+          </div>
+
+          <div class="about02__simplify">
+            <h2 class="about02__simplify-title">To simplify the Search.</h2>
+            <p class="about02__simplify-sub">
+              To bring forward Products &amp; Services that deserve
+              <strong>attention</strong> — not because they are
+              <strong>everywhere</strong>, but because they are
+              <strong>worth</strong> sharing.
+            </p>
+          </div>
+
+          <div class="about02__cards">
+            <article class="about02__card">
+              <div class="about02__card-icon">
+                <div class="about02__card-icon-bg">
+                  <img src="assets/images/card-icon-ellipse.svg" alt="" />
+                </div>
+                <div class="about02__card-icon-cross" style="transform: rotate(-121.21deg)">
+                  <img src="assets/images/card-icon-cross.png" alt="" />
+                </div>
+              </div>
+              <p class="about02__card-text">Each feature is intentional.</p>
+            </article>
+
+            <article class="about02__card">
+              <div class="about02__card-icon">
+                <div class="about02__card-icon-bg">
+                  <img src="assets/images/card-icon-ellipse.svg" alt="" />
+                </div>
+                <div class="about02__card-icon-cross" style="transform: rotate(-45deg)">
+                  <img src="assets/images/card-icon-cross.png" alt="" />
+                </div>
+              </div>
+              <p class="about02__card-text">Each selection is curated with purpose.</p>
+            </article>
+
+            <article class="about02__card">
+              <div class="about02__card-icon">
+                <div class="about02__card-icon-bg">
+                  <img src="assets/images/card-icon-ellipse.svg" alt="" />
+                </div>
+                <div class="about02__card-icon-cross" style="transform: rotate(135deg)">
+                  <img src="assets/images/card-icon-cross.png" alt="" />
+                </div>
+              </div>
+              <p class="about02__card-text">Each presentation is designed to help you understand quickly and choose with confidence.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== We Believe ===== -->
+      <section id="believe" class="believe" aria-label="What we believe">
+        <div class="believe__inner">
+          <h2 class="believe__heading">
+            We Believe That Discovering the Right Products &amp; Services
+            Should Feel Effortless — Not Overwhelming.
+          </h2>
+          <p class="believe__sub">
+            BiSSMiXi is where <strong>discovery</strong> becomes refined,
+            and where better <strong>choices</strong> begin.
+          </p>
+        </div>
+        <div class="believe__bubble" aria-hidden="true"></div>
+        <div class="believe__saturn" aria-hidden="true">
+          <img src="assets/images/decor-saturn.png" alt="" />
+        </div>
+      </section>
+
+      <!-- ===== Brands ===== -->
+      <section id="for-brands" class="brands" aria-label="For brands">
+        <div class="brands__inner">
+          <!-- Top: Showcase intro + image 67 -->
+          <div class="brands__intro">
+            <div>
+              <p class="brands__eyebrow">Showcase Your Products &amp; Services</p>
+              <h2 class="brands__heading">
+                We Offer Brands a Curated Space to Present Their Products &amp; Services to a Highly Engaged Audience.
+              </h2>
+              <p class="brands__body">
+                Our content is designed to highlight <strong>Product Quality </strong>
+                and <strong>Services Values</strong> through clean visuals,
+                short-form videos, and clear messaging.
+              </p>
+              <p class="brands__body">
+                We mindfully select the <strong>Products &amp; Services</strong>
+                we feature to ensure alignment with our platform standards and
+                selection criteria.
+              </p>
+            </div>
+            <div class="brands__visual" aria-hidden="true">
+              <img src="assets/images/brands-blob.png" alt="" />
+            </div>
+          </div>
+
+          <!-- Form section -->
+          <div class="brands__form-section">
+            <div class="brands__form-bg" aria-hidden="true">
+              <img src="assets/images/form-blob.png" alt="" />
+            </div>
+
+            <div class="brands__form-intro">
+              <h3 class="brands__form-title">
+                To receive our Media Packages &amp; Pricing, please<br />
+                fill out the form below.
+              </h3>
+              <p class="brands__form-sub">Our team will get back to you shortly.</p>
+            </div>
+
+            <form class="brands__form" onsubmit="event.preventDefault();">
+              <div class="brands__form-grid">
+                <div class="brands__form-row">
+                  <div class="brands__field">
+                    <label for="b-company">Company Name:</label>
+                    <input id="b-company" class="brands__input" type="text" placeholder="Company Name..." />
+                  </div>
+                  <div class="brands__field">
+                    <label for="b-contact">Contact Person:</label>
+                    <input id="b-contact" class="brands__input" type="text" placeholder="Contact Person..." />
+                  </div>
+                </div>
+                <div class="brands__form-row">
+                  <div class="brands__field">
+                    <label for="b-email">Email Address:</label>
+                    <input id="b-email" class="brands__input" type="email" placeholder="Email Address..." />
+                  </div>
+                  <div class="brands__field">
+                    <label for="b-phone">Phone Number:</label>
+                    <input id="b-phone" class="brands__input" type="tel" placeholder="Phone Number..." />
+                  </div>
+                </div>
+                <div class="brands__form-row">
+                  <div class="brands__field">
+                    <label for="b-url">Product / Service URL (optional):</label>
+                    <div class="brands__field-icon">
+                      <input id="b-url" class="brands__input" type="url" placeholder="https://" />
+                      <svg class="brands__field-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 1 0-7.07-7.07L11 5"/>
+                        <path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 1 0 7.07 7.07l1.99-1.99"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="brands__field">
+                    <label for="b-platform">Platform (optional):</label>
+                    <div class="brands__select-wrap">
+                      <select id="b-platform" class="brands__select" required>
+                        <option value="" disabled selected>Select Platform</option>
+                        <option value="amazon">Amazon</option>
+                        <option value="noon">Noon</option>
+                        <option value="website">Website</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="brands__field brands__field--full">
+                  <label for="b-message">Message (optional):</label>
+                  <textarea id="b-message" class="brands__textarea" placeholder="Your Message..."></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="brands__submit">
+                Submit
+                <span class="brands__submit-icon">
+                  <svg viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Discoveries ===== -->
+      <section id="discover" class="discoveries" aria-label="Discoveries">
+        <div class="discoveries__inner">
+          <div>
+            <p class="discoveries__eyebrow">Discoveries</p>
+            <h2 class="discoveries__heading">
+              Our Discovery Page will Feature the
+              <em>Products &amp; Services We Explore</em> and Recommend.
+            </h2>
+            <p class="discoveries__sub">
+              Curated <strong>selections</strong>, Updated
+              <strong>continuously.</strong>
+            </p>
+            <a href="#" class="discoveries__cta">
+              Explore Discoveries
+              <span class="discoveries__cta-icon">
+                <svg viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+              </span>
+            </a>
+          </div>
+
+          <div class="discoveries__portal">
+            <div class="discoveries__spotlight" aria-hidden="true"></div>
+
+            <div class="discoveries__card" data-index="0">
+              <img src="assets/images/discovery-card-1.png" alt="Discovery card 1" />
+            </div>
+            <div class="discoveries__card" data-index="1">
+              <img src="assets/images/discovery-card-2.png" alt="Discovery card 2" />
+            </div>
+            <div class="discoveries__card" data-index="2">
+              <img src="assets/images/discovery-1.png" alt="Discovery card 3" />
+            </div>
+            <div class="discoveries__card" data-index="3">
+              <img src="assets/images/discovery-card-3.png" alt="Discovery card 4" />
+            </div>
+
+            <div class="discoveries__plus discoveries__plus--1" aria-hidden="true">
+              <img src="assets/images/plus-icon.svg" alt="" />
+            </div>
+            <div class="discoveries__plus discoveries__plus--2" aria-hidden="true">
+              <img src="assets/images/plus-icon.svg" alt="" />
+            </div>
+            <div class="discoveries__plus discoveries__plus--3" aria-hidden="true">
+              <img src="assets/images/plus-icon-alt.svg" alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Coming Soon Marquee ===== -->
+      <section class="marquee" aria-label="Coming Soon">
+        <div class="marquee__track" aria-hidden="true">
+          <!-- First set -->
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <!-- Duplicate for seamless loop -->
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+          <span class="marquee__item">Coming Soon</span>
+        </div>
+      </section>
+
+      <!-- ===== Contact ===== -->
+      <section id="contact" class="contact" aria-label="Contact">
+        <div class="contact__watermark" aria-hidden="true">BiSSMiXi</div>
+
+        <div class="contact__inner">
+          <div class="contact__card">
+            <div class="contact__email-group">
+              <div>
+                <p class="contact__eyebrow">Email</p>
+                <a
+                  href="mailto:hello@bissmixi.com"
+                  class="contact__email-link"
+                  >hello@bissmixi.com</a
+                >
+              </div>
+              <div class="contact__divider" aria-hidden="true"></div>
+            </div>
+
+            <div class="contact__topics">
+              <div class="contact__topic">
+                <span class="contact__topic-label">Inquiries</span>
+                <span class="contact__topic-body"
+                  >General questions about the Platform &amp; Curation.</span
+                >
+              </div>
+              <div class="contact__topic">
+                <span class="contact__topic-label">Collaborations</span>
+                <span class="contact__topic-body"
+                  >Editorial partnerships, content &amp; creators.</span
+                >
+              </div>
+              <div class="contact__topic">
+                <span class="contact__topic-label">Brands</span>
+                <span class="contact__topic-body"
+                  >See our for Brands page to request the Media Package.</span
+                >
+              </div>
+            </div>
+
+            <p class="contact__response">
+              Response Time · 1–2 Business Days
+            </p>
+          </div>
+
+          <div class="contact__visual" aria-hidden="true">
+            <img src="assets/images/contact-glass.png" alt="" />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer__inner">
+        <div class="site-footer__cards">
+          <!-- Left brand card -->
+          <div class="site-footer__brand">
+            <a href="#hero" class="site-footer__logo">BiSSMiXi</a>
+
+            <div class="site-footer__brand-text">
+              <p class="site-footer__brand-tagline">
+                Curated Products &amp; Services Discovery.
+              </p>
+              <p class="site-footer__brand-desc">
+                Discover Products, Services, Design &amp; Values that stand
+                out — thoughtfully selected for their Design, Functionality,
+                and real values.
+              </p>
+            </div>
+
+            <div class="site-footer__connect">
+              <span class="site-footer__connect-label">Let's Connect:</span>
+              <div class="site-footer__socials">
+                <a href="#" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.81-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.81-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.77.13 4.9.32 4.14.62a5.85 5.85 0 0 0-2.13 1.39A5.85 5.85 0 0 0 .62 4.14c-.3.76-.5 1.63-.55 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.25 2.15.55 2.91.31.79.73 1.46 1.39 2.13a5.85 5.85 0 0 0 2.13 1.39c.76.3 1.63.5 2.91.55C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.25 2.91-.55a5.85 5.85 0 0 0 2.13-1.39 5.85 5.85 0 0 0 1.39-2.13c.3-.76.5-1.63.55-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.25-2.15-.55-2.91a5.85 5.85 0 0 0-1.39-2.13A5.85 5.85 0 0 0 19.86.62c-.76-.3-1.63-.5-2.91-.55C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm7.85-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.36-1.84c3.59 0 4.25 2.36 4.25 5.43v6.3ZM5.34 7.43A2.06 2.06 0 1 1 7.4 5.36a2.06 2.06 0 0 1-2.06 2.07ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/></svg>
+                </a>
+                <a href="#" aria-label="YouTube">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.7 3.6 12 3.6 12 3.6s-7.7 0-9.5.5c-1 .3-1.7 1.1-2 2.1C0 8 0 12 0 12s0 4 .5 5.8c.3 1 1 1.8 2 2.1 1.8.5 9.5.5 9.5.5s7.7 0 9.5-.5c1-.3 1.7-1.1 2-2.1C24 16 24 12 24 12s0-4-.5-5.8ZM9.6 15.5V8.5l6.4 3.5-6.4 3.5Z"/></svg>
+                </a>
+                <a href="#" aria-label="TikTok">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.07A6.33 6.33 0 0 0 5.6 20.1a6.34 6.34 0 0 0 10.86-4.43V8.93a8.16 8.16 0 0 0 4.78 1.52V7a4.85 4.85 0 0 1-1.65-.31Z"/></svg>
+                </a>
+                <a href="#" aria-label="Twitter / X">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right links card -->
+          <div class="site-footer__links-card">
+            <div class="site-footer__cols">
+              <div class="site-footer__col">
+                <h4>Quick Links</h4>
+                <ul>
+                  <li><a href="#hero">Home</a></li>
+                  <li><a href="#about">About</a></li>
+                  <li><a href="#discover">Discover</a></li>
+                  <li><a href="#for-brands">For Brands</a></li>
+                </ul>
+              </div>
+
+              <div class="site-footer__col">
+                <h4>Legal</h4>
+                <ul>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms &amp; Conditions</a></li>
+                </ul>
+              </div>
+
+              <div class="site-footer__col site-footer__col--contact">
+                <h4>Contact Us</h4>
+                <p style="margin-bottom: 24px;">
+                  For inquiries, collaborations, or general questions:
+                </p>
+                <a href="mailto:hello@bissmixi.com" class="site-footer__email"
+                  >hello@bissmixi.com</a
+                >
+              </div>
+            </div>
+
+            <div class="site-footer__newsletter-row">
+              <div class="site-footer__newsletter">
+                <div>
+                  <h5>Stay Updated</h5>
+                  <p>
+                    Get the latest curated discoveries and featured Products
+                    &amp; Services.
+                  </p>
+                </div>
+                <form
+                  class="site-footer__newsletter-input"
+                  onsubmit="event.preventDefault();"
+                >
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    aria-label="Email Address"
+                  />
+                  <button type="submit" class="site-footer__newsletter-submit">
+                    Subscribe
+                    <span class="site-footer__newsletter-icon">
+                      <svg viewBox="0 0 24 24">
+                        <path d="M7 17 17 7" />
+                        <path d="M8 7h9v9" />
+                      </svg>
+                    </span>
+                  </button>
+                </form>
+              </div>
+
+              <p class="site-footer__affiliate">
+                Some links may be <strong>Affiliate Links.</strong> We may earn
+                a commission at no additional cost to you.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="site-footer__bottom">
+          <span>© <span id="footer-year">2026</span> BiSSMiXi. All rights reserved.</span>
+          <span>Design by <a href="#">Xammin</a></span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- GSAP + ScrollTrigger (CDN) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
+      defer
+    ></script>
+
+    <!-- App entry -->
+    <script type="module" src="js/main.js" defer></script>
+  </body>
+</html>

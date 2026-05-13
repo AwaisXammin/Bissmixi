@@ -1,0 +1,343 @@
+/* ==========================================================================
+   Section: About 02 — Step In + Selection Process + To Simplify (dark cards)
+   Background: light → near-black gradient transition
+   ========================================================================== */
+
+.about02 {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    var(--color-light-02) 0%,
+    rgba(133, 116, 188, 0) 0%,
+    #131121 12.6%,
+    #191a24 100%
+  );
+  color: var(--color-white);
+  padding-block: clamp(80px, 10vw, 180px);
+  padding-inline: var(--section-pad-x);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.about02__inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+/* ---- 02 indicator (white version) ---- */
+.about02__indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  width: 100%;
+  margin-inline: auto;
+  margin-bottom: clamp(28px, 3vw, 47px);
+}
+
+.about02__line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.5);
+  max-width: 844px;
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+.about02__line--left { transform-origin: right center; }
+.about02__line--right { transform-origin: left center; }
+
+.about02__num {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: clamp(20px, 1.55vw, 27px);
+  line-height: 1.21;
+  color: var(--color-white);
+  opacity: 0;
+}
+
+/* ---- Step In headline cluster ---- */
+.about02__stepin {
+  text-align: center;
+  margin-bottom: clamp(100px, 12vw, 200px);
+}
+
+.about02__stepin-title {
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: clamp(28px, 3vw, 46px);
+  line-height: 1.21;
+  color: var(--color-white);
+  max-width: 884px;
+  margin: 0 auto clamp(20px, 2.2vw, 34px);
+}
+
+.about02__stepin-sub {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.5vw, 26px);
+  line-height: 1.4;
+  color: var(--color-white);
+  max-width: 884px;
+  margin: 0 auto;
+}
+
+.about02__stepin-sub strong { font-weight: var(--fw-semibold); }
+
+/* ---- Selection Process ---- */
+.about02__process {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+  margin-bottom: clamp(100px, 12vw, 200px);
+  min-height: clamp(400px, 50vw, 800px);
+}
+
+.about02__process-text {
+  position: relative;
+  z-index: 2;
+}
+
+.about02__process-heading {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-semibold);
+  font-size: clamp(40px, 4.4vw, 75px);
+  line-height: var(--headline-leading);
+  letter-spacing: var(--headline-tracking);
+  color: var(--color-white);
+  margin-bottom: clamp(24px, 3vw, 40px);
+  max-width: 730px;
+}
+
+.about02__process-heading em {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-weight: var(--fw-bold);
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.about02__process-body {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.5vw, 26px);
+  line-height: 1.4;
+  color: var(--color-white);
+  max-width: 580px;
+  margin-bottom: clamp(20px, 2vw, 32px);
+}
+
+.about02__process-body strong { font-weight: var(--fw-semibold); }
+
+.about02__process-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 786 / 1016;
+  max-height: 1016px;
+}
+
+/* Group 211 background gradient — slow drift + scale */
+.about02__bg-gradient {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130%;
+  aspect-ratio: 1218 / 1033;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  will-change: transform;
+  animation: about02-bg-drift 22s var(--ease-in-out) infinite;
+}
+
+@keyframes about02-bg-drift {
+  0%,100% { transform: translate(-50%,-50%) scale(1); }
+  50%     { transform: translate(-48%,-52%) scale(1.08); }
+}
+
+.about02__bg-gradient img,
+.about02__bg-gradient svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: blur(2px);
+}
+
+/* image 60 — the glass molecular shape */
+.about02__process-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 30px 60px rgba(80, 60, 150, 0.4));
+  will-change: transform;
+  animation: about02-glass-bob 11s var(--ease-in-out) infinite;
+}
+
+@keyframes about02-glass-bob {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50%     { transform: translateY(-22px) rotate(3deg); }
+}
+
+/* ---- "To simplify the Search" ---- */
+.about02__simplify {
+  text-align: center;
+  margin-bottom: clamp(40px, 5vw, 80px);
+}
+
+.about02__simplify-title {
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: clamp(28px, 3vw, 46px);
+  line-height: 1.21;
+  color: var(--color-white);
+  margin-bottom: 24px;
+}
+
+.about02__simplify-sub {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.5vw, 26px);
+  line-height: 1.4;
+  color: var(--color-white);
+  max-width: 884px;
+  margin: 0 auto;
+}
+
+.about02__simplify-sub strong { font-weight: var(--fw-semibold); }
+
+/* ---- 3 Dark Cards ---- */
+.about02__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 316px));
+  gap: clamp(20px, 2vw, 50px);
+  justify-content: center;
+}
+
+.about02__card {
+  position: relative;
+  width: 100%;
+  height: clamp(240px, 22vw, 298px);
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.01);
+  -webkit-backdrop-filter: blur(45px);
+  backdrop-filter: blur(45px);
+  padding: 24px 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 39px;
+  isolation: isolate;
+}
+
+/* Animated traveling-border — clockwise gradient */
+.about02__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    transparent 0deg,
+    transparent 240deg,
+    #DAC9FF 280deg,
+    #9FA4FE 320deg,
+    #BAB0FA 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  animation: about02-card-border 3s linear infinite;
+  z-index: 1;
+}
+
+/* Static base border under the moving one for soft halo */
+.about02__card {
+  border: 2px solid #a2a6fe;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes about02-card-border {
+  to { --angle: 360deg; }
+}
+
+/* Card icon cluster */
+.about02__card-icon {
+  position: relative;
+  width: 94px;
+  height: 94px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about02__card-icon-bg {
+  position: absolute;
+  inset: -7%;
+  width: calc(100% + 14%);
+  height: calc(100% + 18%);
+  z-index: 0;
+  will-change: transform;
+  animation: about02-icon-pulse 5s var(--ease-in-out) infinite;
+}
+
+.about02__card-icon-bg img { width: 100%; height: 100%; }
+
+.about02__card-icon-cross {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  z-index: 1;
+  will-change: transform;
+  animation: about02-icon-rotate 9s linear infinite;
+}
+
+.about02__card-icon-cross img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes about02-icon-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes about02-icon-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.06); opacity: 0.85; }
+}
+
+/* Card text */
+.about02__card-text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.276;
+  color: var(--color-white);
+  width: 246px;
+  max-width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .about02__process { grid-template-columns: 1fr; }
+  .about02__process-visual { max-width: 480px; margin-inline: auto; }
+}
+
+@media (max-width: 768px) {
+  .about02__cards { grid-template-columns: 1fr; }
+  .about02__card { height: auto; min-height: 240px; }
+}

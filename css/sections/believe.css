@@ -1,0 +1,104 @@
+/* ==========================================================================
+   Section: We Believe — gradient background + centered heading + decorations
+   ========================================================================== */
+
+.believe {
+  position: relative;
+  height: clamp(560px, 55vw, 782px);
+  background: var(--gradient-primary);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--section-pad-x);
+  animation: believe-gradient-pan 18s var(--ease-in-out) infinite;
+}
+
+@keyframes believe-gradient-pan {
+  0%,100% { background-position: 0% 50%; }
+  50%     { background-position: 100% 50%; }
+}
+
+.believe__inner {
+  position: relative;
+  max-width: var(--container-max);
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+.believe__heading {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-semibold);
+  font-size: clamp(36px, 4.4vw, 75px);
+  line-height: var(--headline-leading);
+  letter-spacing: var(--headline-tracking);
+  color: var(--color-background);
+  max-width: 1301px;
+  margin: 0 auto clamp(40px, 4vw, 64px);
+}
+
+.believe__sub {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 1.5vw, 26px);
+  line-height: 1.4;
+  color: var(--color-background);
+  max-width: 564px;
+  margin: 0 auto;
+}
+
+.believe__sub strong { font-weight: var(--fw-semibold); }
+
+/* Small bubble — Ellipse 30 — top right */
+.believe__bubble {
+  position: absolute;
+  top: -3%;
+  right: 17%;
+  width: clamp(60px, 7vw, 110px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+    inset 6px 6px 18px rgba(255, 255, 255, 0.4),
+    0 8px 30px rgba(80, 60, 150, 0.2);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+  animation: believe-bubble 8s var(--ease-in-out) infinite;
+  will-change: transform;
+}
+
+@keyframes believe-bubble {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50%     { transform: translate(-12px,18px) scale(1.05); }
+}
+
+/* Saturn rings — Image 80 — bottom left */
+.believe__saturn {
+  position: absolute;
+  bottom: 6%;
+  left: 2%;
+  width: clamp(120px, 14vw, 224px);
+  aspect-ratio: 224 / 177;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+  animation: believe-saturn 12s var(--ease-in-out) infinite;
+}
+
+@keyframes believe-saturn {
+  0%,100% { transform: rotate(0deg) translateY(0); }
+  50%     { transform: rotate(8deg) translateY(-14px); }
+}
+
+.believe__saturn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: contrast(1.1);
+}

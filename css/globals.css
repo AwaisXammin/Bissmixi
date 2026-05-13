@@ -1,0 +1,256 @@
+/* ==========================================================================
+   Global Foundation — Bissmixi
+   Imports tokens + reset, defines @font-face, base typography,
+   container system, and reusable utilities. Section CSS files inherit this.
+   ========================================================================== */
+
+@import url("./variables.css");
+@import url("./reset.css");
+
+/* Cormorant Garamond (Google Fonts) */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+/* ==========================================================================
+   @font-face — Givonic (self-hosted)
+   ========================================================================== */
+@font-face {
+  font-family: "Givonic";
+  src: url("../assets/fonts/Givonic-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Givonic";
+  src: url("../assets/fonts/Givonic-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Givonic";
+  src: url("../assets/fonts/Givonic-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Givonic";
+  src: url("../assets/fonts/Givonic-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Givonic";
+  src: url("../assets/fonts/Givonic-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Givonic";
+  src: url("../assets/fonts/Givonic-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Base typography
+   ========================================================================== */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-white);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: inherit;
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
+h5 { font-size: var(--fs-h5); }
+h6 { font-size: var(--fs-h6); }
+
+p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+::selection {
+  background: var(--color-primary-2);
+  color: var(--color-background);
+}
+
+/* ==========================================================================
+   Container & layout
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+.container--fluid {
+  width: 100%;
+  padding-inline: var(--container-padding);
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(4rem, 8vw, 8rem);
+}
+
+/* ==========================================================================
+   Reusable utilities
+   ========================================================================== */
+
+/* Display */
+.flex      { display: flex; }
+.inline-flex { display: inline-flex; }
+.grid      { display: grid; }
+.block     { display: block; }
+.hidden    { display: none; }
+
+/* Flex helpers */
+.items-center  { align-items: center; }
+.items-start   { align-items: flex-start; }
+.items-end     { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start; }
+.justify-end   { justify-content: flex-end; }
+.flex-col      { flex-direction: column; }
+.flex-wrap     { flex-wrap: wrap; }
+.gap-2 { gap: var(--space-2); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+/* Text */
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+
+/* Gradient text */
+.text-gradient {
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Italic / heading variants used in the design */
+.italic { font-style: italic; }
+
+/* Visually hidden (a11y) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Surface helpers */
+.bg-dark    { background-color: var(--color-background); color: var(--color-text-on-dark); }
+.bg-light-1 { background-color: var(--color-light-01); }
+.bg-light-2 { background-color: var(--color-light-02); }
+.bg-gradient { background: var(--gradient-primary); }
+
+/* Buttons base (sections will extend) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+  letter-spacing: var(--ls-normal);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out),
+              background var(--duration-base) var(--ease-out);
+  will-change: transform;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--primary {
+  background: var(--gradient-primary);
+  color: var(--color-background);
+}
+
+.btn--dark {
+  background: var(--color-background);
+  color: var(--color-white);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+
+/* Icon-only circular button (seen in hero with arrow) */
+.btn-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.btn-circle:hover { transform: rotate(45deg); }
+
+/* Scroll-reveal initial states (GSAP will animate `data-reveal` elements) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+}
