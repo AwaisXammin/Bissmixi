@@ -1,37 +1,70 @@
 /* ==========================================================================
-   Section: Discoveries — Dark portal w/ Ellipse 42 spotlight orbiting behind cards
+   Section: Discoveries — Dark portal with tilted Ellipse 42 orbiting behind cards
    ========================================================================== */
 
 .discoveries {
   position: relative;
-  background: linear-gradient(
-    180deg,
-    #f1edfc 0%,
-    #161321 22%,
-    #161321 60%,
-    #191a24 100%
-  );
+  background: #191a24;
   color: var(--color-white);
-  padding-block: clamp(140px, 14vw, 280px);
+  padding-block: clamp(80px, 10vw, 200px);
   padding-inline: var(--section-pad-x);
   overflow: hidden;
   isolation: isolate;
 }
 
-/* Background perspective grid + shades (carried from hero design) */
+/* Perspective grid + glass shade squares (matches Figma exactly) */
 .discoveries__grid-bg {
   position: absolute;
-  inset: 22% 0 0 0;
+  inset: 0;
   width: 100%;
+  height: 100%;
   pointer-events: none;
-  opacity: 0.38;
   z-index: 0;
+  overflow: hidden;
 }
 
-.discoveries__grid-bg img {
+.discoveries__grid-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.38;
+}
+
+/* 5 floating glass shade squares (75px each, purple-bordered) */
+.discoveries__shade {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  border: 2px solid #dac9ff;
+  opacity: 0.3;
+}
+
+.discoveries__shade--1 {
+  left: 13%;
+  top: 70%;
+  background: rgba(255, 255, 255, 0.08);
+}
+.discoveries__shade--2 {
+  left: 26%;
+  top: 32%;
+  background: rgba(255, 255, 255, 0.12);
+}
+.discoveries__shade--3 {
+  left: 48%;
+  top: 52%;
+  background: rgba(255, 255, 255, 0.12);
+}
+.discoveries__shade--4 {
+  left: 87%;
+  top: 70%;
+  background: rgba(255, 255, 255, 0.1);
+}
+.discoveries__shade--5 {
+  left: 87%;
+  top: 37%;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .discoveries__inner {
@@ -45,7 +78,9 @@
   gap: clamp(40px, 5vw, 80px);
 }
 
-/* ---- Text column ---- */
+/* ============================================================
+   Text column
+   ============================================================ */
 .discoveries__eyebrow {
   font-family: var(--font-body);
   font-size: var(--eyebrow-fs-lg);
@@ -63,7 +98,7 @@
   line-height: var(--headline-leading);
   letter-spacing: var(--headline-tracking);
   color: var(--color-white);
-  margin-bottom: clamp(24px, 3vw, 40px);
+  margin-bottom: clamp(16px, 1.8vw, 24px);
   max-width: 800px;
 }
 
@@ -80,11 +115,11 @@
 
 .discoveries__sub {
   font-family: var(--font-body);
-  font-size: clamp(16px, 1.5vw, 26px);
+  font-size: clamp(15px, 1.4vw, 22px);
   line-height: 1.4;
   color: var(--color-white);
   max-width: 564px;
-  margin-bottom: clamp(28px, 3vw, 44px);
+  margin-bottom: clamp(10px, 1vw, 16px);
 }
 
 .discoveries__sub strong { font-weight: var(--fw-semibold); }
@@ -92,14 +127,14 @@
 .discoveries__cta {
   display: inline-flex;
   align-items: center;
-  gap: 34px;
-  padding: 16px 7px 16px 36px;
-  height: 64px;
+  gap: 12px;
+  padding: 8px 8px 8px 28px;
+  height: 56px;
   background: var(--gradient-primary);
   border-radius: 100px;
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 15px;
   color: var(--color-background);
   text-transform: capitalize;
   transition: transform var(--duration-fast), box-shadow var(--duration-base);
@@ -112,69 +147,192 @@
 }
 
 .discoveries__cta-icon {
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--color-background);
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-background);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .discoveries__cta-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   stroke: currentColor;
   fill: none;
-  stroke-width: 1.5;
+  stroke-width: 1.75;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-/* ---- Portal column (right) ---- */
+/* ============================================================
+   Portal column — Ellipse 42 + 4 asymmetric cards
+   The portal has a fixed aspect ratio so cards can be absolutely
+   positioned with proper proportions, and the spotlight extends
+   well beyond the card area for the halo glow effect.
+   ============================================================ */
 .discoveries__portal {
   position: relative;
   width: 100%;
-  aspect-ratio: 0.85 / 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 16px;
-  padding: 8%;
+  max-width: 600px;
+  aspect-ratio: 580 / 680;
+  margin-inline: auto;
+  z-index: 1;
 }
 
-/* Ellipse 42 — the moving spotlight that orbits behind cards */
-.discoveries__spotlight {
+/* ============================================================
+   Ellipse 42 portal: STATIC shape, animated COLOR/gradient
+   gives the feel of energy flowing through the portal
+   ============================================================ */
+.discoveries__portal-glass {
   position: absolute;
-  top: 50%;
+  /* Centered diagonally, larger to encompass the card area.
+     Shifted slightly downward so the shape sits a bit lower. */
+  top: 56%;
   left: 50%;
-  width: 90%;
-  aspect-ratio: 1 / 1;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at center,
-    rgba(218, 201, 255, 0.55) 0%,
-    rgba(159, 164, 254, 0.35) 35%,
-    rgba(186, 176, 250, 0.2) 60%,
-    rgba(186, 176, 250, 0) 80%
-  );
-  filter: blur(30px);
+  width: 105%;
+  aspect-ratio: 452 / 920;
+  transform: translate(-50%, -50%) rotate(20deg);
   pointer-events: none;
-  z-index: 1;
+  /* z-index: 2 — IN FRONT of card 1 (TL bottle), BEHIND cards 2/3/4 (z:3) */
+  z-index: 2;
   will-change: transform;
 }
 
-/* Each card sits on the grid */
+/* Glass blur layer — backdrop-filtered region clipped to the SVG shape */
+.discoveries__glass-blur {
+  position: absolute;
+  inset: 0;
+  /* Backdrop-blur clipped through the SVG's ellipse mask so only the area
+     inside the portal shape blurs whatever is behind it */
+  -webkit-mask: url("../../assets/images/ellipse-portal.svg") center / contain no-repeat;
+          mask: url("../../assets/images/ellipse-portal.svg") center / contain no-repeat;
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  backdrop-filter: blur(14px) saturate(1.25);
+  background: rgba(218, 201, 255, 0.06);
+}
+
+/* The static glass shape — never rotates, just sits tilted */
+.discoveries__spotlight {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.discoveries__spotlight img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* Boost the SVG's stroke and glow significantly so the portal reads clearly */
+  filter:
+    brightness(1.9)
+    saturate(1.35)
+    contrast(1.15)
+    drop-shadow(0 0 40px rgba(159, 164, 254, 0.65));
+}
+
+/* Color band flowing along the portal's long axis (top→bottom and back)
+   — creates the "energy flowing through" feel without rotating the shape */
+.discoveries__portal-glass::before {
+  content: "";
+  position: absolute;
+  inset: 5% 12%;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(218, 201, 255, 0) 0%,
+    rgba(218, 201, 255, 0.55) 30%,
+    rgba(159, 164, 254, 0.7) 50%,
+    rgba(186, 176, 250, 0.55) 70%,
+    rgba(186, 176, 250, 0) 100%
+  );
+  background-size: 100% 300%;
+  background-position: 0% 0%;
+  filter: blur(28px);
+  animation: discoveries-flow 4.5s linear infinite;
+  z-index: -1;
+}
+
+@keyframes discoveries-flow {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 0% -200%; }
+}
+
+/* Conic gradient layer rotating inside the portal — chromatic shimmer */
+.discoveries__portal-glass::after {
+  content: "";
+  position: absolute;
+  inset: 8% 15%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(218, 201, 255, 0) 0deg,
+    rgba(218, 201, 255, 0.45) 60deg,
+    rgba(159, 164, 254, 0.55) 130deg,
+    rgba(186, 176, 250, 0.45) 220deg,
+    rgba(218, 201, 255, 0.3) 300deg,
+    rgba(218, 201, 255, 0) 360deg
+  );
+  filter: blur(34px);
+  animation: discoveries-conic 7s linear infinite;
+  z-index: -2;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+}
+
+@keyframes discoveries-conic {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Outer breathing halo behind everything */
+.discoveries__halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130%;
+  height: 115%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 40% 55% at center,
+    rgba(159, 164, 254, 0.55) 0%,
+    rgba(186, 176, 250, 0.3) 30%,
+    rgba(186, 176, 250, 0.12) 55%,
+    rgba(186, 176, 250, 0) 80%
+  );
+  filter: blur(50px);
+  will-change: transform, opacity;
+  animation: discoveries-halo 6s var(--ease-in-out) infinite;
+}
+
+@keyframes discoveries-halo {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-48%, -52%) scale(1.12);
+    opacity: 1;
+  }
+}
+
+/* Each card — absolutely positioned for asymmetric layout */
 .discoveries__card {
-  position: relative;
+  position: absolute;
   z-index: 2;
+  width: calc(50% - 8px);
   border-radius: 22px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.04);
-  filter: brightness(0.7) saturate(0.85);
-  transform: scale(0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.4);
+  filter: brightness(0.92) saturate(0.95);
   transition:
     filter 0.9s var(--ease-out),
     transform 0.9s var(--ease-out),
@@ -183,55 +341,266 @@
 }
 
 .discoveries__card.is-lit {
-  filter: brightness(1.1) saturate(1.1);
-  transform: scale(1);
-  box-shadow: 0 30px 60px rgba(159, 164, 254, 0.3);
+  filter: brightness(1.15) saturate(1.1);
+  transform: scale(1.03);
+  box-shadow: 0 30px 60px rgba(159, 164, 254, 0.5);
 }
 
 .discoveries__card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 1.2s var(--ease-out);
 }
 
 .discoveries__card.is-lit img { transform: scale(1.04); }
 
-/* Floating + icons decorating around */
+/* Asymmetric absolute positioning matching Figma diagonal pattern:
+   tall TL  | short TR
+   short BL | tall BR
+   Heights tightened so the row gap is small (matches design). */
+.discoveries__card--tl {
+  top: 0;
+  left: 0;
+  height: 57%;
+  /* TL sits BEHIND the portal so it has the 3D-tunnel feel */
+  z-index: 1;
+}
+.discoveries__card--tr {
+  top: 0;
+  right: 0;
+  height: 43%;
+  z-index: 3;
+}
+.discoveries__card--bl {
+  bottom: 0;
+  left: 0;
+  height: 43%;
+  z-index: 3;
+}
+.discoveries__card--br {
+  bottom: 0;
+  right: 0;
+  height: 57%;
+  z-index: 3;
+}
+
+/* ============================================================
+   Floating + plus icons
+   ============================================================ */
 .discoveries__plus {
   position: absolute;
-  width: clamp(40px, 4vw, 70px);
+  width: clamp(20px, 2.5vw, 38px);
   aspect-ratio: 1 / 1;
-  opacity: 0.55;
+  opacity: 0.5;
   pointer-events: none;
   z-index: 3;
+  color: var(--color-white);
   will-change: transform;
 }
 
-.discoveries__plus img { width: 100%; height: 100%; }
+.discoveries__plus::before,
+.discoveries__plus::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.discoveries__plus::before {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  transform: translateY(-50%);
+}
+
+.discoveries__plus::after {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  transform: translateX(-50%);
+}
 
 .discoveries__plus--1 {
-  top: 12%;
-  right: 4%;
+  top: 6%;
+  right: -2%;
   animation: discoveries-plus 8s var(--ease-in-out) infinite;
 }
 .discoveries__plus--2 {
-  bottom: 4%;
-  left: 8%;
+  bottom: 2%;
+  left: -2%;
   animation: discoveries-plus 10s var(--ease-in-out) infinite reverse;
 }
 .discoveries__plus--3 {
-  top: 50%;
-  left: 22%;
+  bottom: 30%;
+  left: -8%;
   animation: discoveries-plus 12s var(--ease-in-out) infinite;
 }
 
 @keyframes discoveries-plus {
-  0%, 100% { transform: translate(0,0) rotate(0deg); }
-  50%      { transform: translate(8px,-12px) rotate(45deg); }
+  0%, 100% { transform: translate(0,0) rotate(0deg); opacity: 0.4; }
+  50%      { transform: translate(8px,-12px) rotate(45deg); opacity: 0.7; }
 }
 
-@media (max-width: 1024px) {
-  .discoveries__inner { grid-template-columns: 1fr; }
-  .discoveries__portal { max-width: 480px; margin-inline: auto; }
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+/* Large desktop (≥1440px) — already at full design size; no override */
+
+/* Small desktop / large tablet (1024–1279px) */
+@media (max-width: 1279px) {
+  .discoveries {
+    padding-block: clamp(80px, 9vw, 160px);
+  }
+  .discoveries__inner { gap: clamp(32px, 4vw, 64px); }
+  .discoveries__heading { font-size: clamp(40px, 4.2vw, 60px); }
+  .discoveries__portal { max-width: 500px; }
+  .discoveries__shade { width: 60px; height: 60px; }
+}
+
+/* Tablet (768–1023px) — stack to single column, center text */
+@media (max-width: 1023px) {
+  .discoveries {
+    padding-block: clamp(64px, 7vw, 100px);
+  }
+  .discoveries__inner {
+    grid-template-columns: 1fr;
+    gap: 64px; /* Clear space between text block and portal */
+    text-align: center;
+  }
+  .discoveries__inner > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .discoveries__eyebrow { margin-bottom: 16px; }
+  .discoveries__heading {
+    font-size: clamp(36px, 5.5vw, 52px);
+    max-width: 700px;
+    margin-bottom: 14px;
+  }
+  .discoveries__sub {
+    max-width: 540px;
+    margin-inline: auto;
+    margin-bottom: 20px;
+  }
+  .discoveries__portal {
+    max-width: 500px;
+    margin-inline: auto;
+  }
+  /* Constrain halo so it doesn't bleed up into the button area */
+  .discoveries__halo { width: 110%; height: 100%; }
+  .discoveries__shade { width: 50px; height: 50px; }
+  .discoveries__shade--3 { display: none; } /* hide middle shade on tablet */
+}
+
+/* Large mobile (480–767px) */
+@media (max-width: 767px) {
+  .discoveries {
+    padding-block: 48px;
+    padding-inline: 20px;
+  }
+  .discoveries__inner { gap: 56px; }
+  .discoveries__eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    margin-bottom: 12px;
+  }
+  .discoveries__heading {
+    font-size: clamp(26px, 7vw, 36px);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .discoveries__sub {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  .discoveries__cta {
+    height: 48px;
+    font-size: 13px;
+    padding: 5px 5px 5px 22px;
+    gap: 10px;
+    /* Ensure button sits above the portal halo */
+    position: relative;
+    z-index: 5;
+  }
+  .discoveries__cta-icon { width: 34px; height: 34px; }
+  .discoveries__cta-icon svg { width: 13px; height: 13px; }
+
+  .discoveries__portal {
+    max-width: 380px;
+    width: 100%;
+  }
+  .discoveries__portal-glass { width: 100%; }
+  .discoveries__card { border-radius: 14px; }
+  .discoveries__shade { width: 36px; height: 36px; border-width: 1.5px; }
+  /* keep only 2 shades on mobile to reduce clutter */
+  .discoveries__shade--1,
+  .discoveries__shade--4 { display: none; }
+  .discoveries__plus { width: clamp(16px, 3.5vw, 22px); }
+  /* Constrain halo to portal bounds so it doesn't poke past the button */
+  .discoveries__halo { width: 100%; height: 95%; opacity: 0.85; }
+
+  /* Slightly tighten the row gap further on mobile */
+  .discoveries__card--tl,
+  .discoveries__card--br { height: 58%; }
+  .discoveries__card--tr,
+  .discoveries__card--bl { height: 41%; }
+}
+
+/* Small mobile (<480px) */
+@media (max-width: 479px) {
+  .discoveries {
+    padding-block: 40px;
+    padding-inline: 14px;
+  }
+  .discoveries__inner { gap: 20px; }
+  .discoveries__eyebrow { margin-bottom: 10px; font-size: 11px; }
+  .discoveries__heading {
+    font-size: clamp(22px, 7.5vw, 28px);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .discoveries__sub {
+    font-size: 13px;
+    line-height: 1.45;
+    margin-bottom: 12px;
+  }
+  .discoveries__cta {
+    height: 44px;
+    font-size: 12px;
+    padding: 4px 4px 4px 18px;
+    gap: 8px;
+  }
+  .discoveries__cta-icon { width: 32px; height: 32px; }
+  .discoveries__cta-icon svg { width: 12px; height: 12px; }
+
+  .discoveries__portal { max-width: 320px; }
+  .discoveries__card { border-radius: 12px; }
+  .discoveries__shade--2,
+  .discoveries__shade--5 { display: none; }
+  .discoveries__portal-glass { width: 105%; }
+}
+
+/* Reduce decorative animations on small screens to save battery */
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .discoveries__halo { animation-duration: 9s; }
+  .discoveries__portal-glass::before { animation-duration: 6s; }
+  .discoveries__portal-glass::after { animation-duration: 10s; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .discoveries__halo,
+  .discoveries__portal-glass::before,
+  .discoveries__portal-glass::after,
+  .discoveries__plus--1,
+  .discoveries__plus--2,
+  .discoveries__plus--3 {
+    animation: none !important;
+  }
 }

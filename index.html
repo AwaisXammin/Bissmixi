@@ -396,7 +396,8 @@
 
             <div class="brands__form-intro">
               <h3 class="brands__form-title">
-                To receive our Media Packages &amp; Pricing, please<br />
+                To receive our Media Packages &amp;<br />
+                Pricing, please<br />
                 fill out the form below.
               </h3>
               <p class="brands__form-sub">Our team will get back to you shortly.</p>
@@ -428,7 +429,7 @@
                   <div class="brands__field">
                     <label for="b-url">Product / Service URL (optional):</label>
                     <div class="brands__field-icon">
-                      <input id="b-url" class="brands__input" type="url" placeholder="https://" />
+                      <input id="b-url" class="brands__input" type="text" placeholder="https://" />
                       <svg class="brands__field-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 1 0-7.07-7.07L11 5"/>
                         <path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 1 0 7.07 7.07l1.99-1.99"/>
@@ -436,15 +437,29 @@
                     </div>
                   </div>
                   <div class="brands__field">
-                    <label for="b-platform">Platform (optional):</label>
-                    <div class="brands__select-wrap">
-                      <select id="b-platform" class="brands__select" required>
-                        <option value="" disabled selected>Select Platform</option>
-                        <option value="amazon">Amazon</option>
-                        <option value="noon">Noon</option>
-                        <option value="website">Website</option>
-                        <option value="other">Other</option>
-                      </select>
+                    <label id="b-platform-label">Platform (optional):</label>
+                    <div
+                      class="brands__dropdown"
+                      data-value=""
+                      role="combobox"
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                      aria-labelledby="b-platform-label"
+                    >
+                      <button type="button" class="brands__dropdown-toggle">
+                        <span class="brands__dropdown-value brands__dropdown-value--placeholder">
+                          Select Platform
+                        </span>
+                        <svg class="brands__dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                      <ul class="brands__dropdown-menu" role="listbox">
+                        <li class="brands__dropdown-item" role="option" data-value="amazon" tabindex="-1">Amazon</li>
+                        <li class="brands__dropdown-item" role="option" data-value="noon" tabindex="-1">Noon</li>
+                        <li class="brands__dropdown-item" role="option" data-value="website" tabindex="-1">Website</li>
+                        <li class="brands__dropdown-item" role="option" data-value="other" tabindex="-1">Other</li>
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -467,6 +482,15 @@
 
       <!-- ===== Discoveries ===== -->
       <section id="discover" class="discoveries" aria-label="Discoveries">
+        <div class="discoveries__grid-bg" aria-hidden="true">
+          <img class="discoveries__grid-img" src="assets/images/discoveries-grid.svg" alt="" />
+          <span class="discoveries__shade discoveries__shade--1"></span>
+          <span class="discoveries__shade discoveries__shade--2"></span>
+          <span class="discoveries__shade discoveries__shade--3"></span>
+          <span class="discoveries__shade discoveries__shade--4"></span>
+          <span class="discoveries__shade discoveries__shade--5"></span>
+        </div>
+
         <div class="discoveries__inner">
           <div>
             <p class="discoveries__eyebrow">Discoveries</p>
@@ -487,30 +511,30 @@
           </div>
 
           <div class="discoveries__portal">
-            <div class="discoveries__spotlight" aria-hidden="true"></div>
-
-            <div class="discoveries__card" data-index="0">
-              <img src="assets/images/discovery-card-1.png" alt="Discovery card 1" />
-            </div>
-            <div class="discoveries__card" data-index="1">
-              <img src="assets/images/discovery-card-2.png" alt="Discovery card 2" />
-            </div>
-            <div class="discoveries__card" data-index="2">
-              <img src="assets/images/discovery-1.png" alt="Discovery card 3" />
-            </div>
-            <div class="discoveries__card" data-index="3">
-              <img src="assets/images/discovery-card-3.png" alt="Discovery card 4" />
+            <div class="discoveries__halo" aria-hidden="true"></div>
+            <div class="discoveries__portal-glass" aria-hidden="true">
+              <div class="discoveries__glass-blur"></div>
+              <div class="discoveries__spotlight">
+                <img src="assets/images/ellipse-portal.svg" alt="" />
+              </div>
             </div>
 
-            <div class="discoveries__plus discoveries__plus--1" aria-hidden="true">
-              <img src="assets/images/plus-icon.svg" alt="" />
+            <div class="discoveries__card discoveries__card--tl" data-index="0">
+              <img src="assets/images/curated-1.png" alt="Discovery — amber bottle" />
             </div>
-            <div class="discoveries__plus discoveries__plus--2" aria-hidden="true">
-              <img src="assets/images/plus-icon.svg" alt="" />
+            <div class="discoveries__card discoveries__card--tr" data-index="1">
+              <img src="assets/images/curated-3.png" alt="Discovery — hand &amp; ring" />
             </div>
-            <div class="discoveries__plus discoveries__plus--3" aria-hidden="true">
-              <img src="assets/images/plus-icon-alt.svg" alt="" />
+            <div class="discoveries__card discoveries__card--bl" data-index="2">
+              <img src="assets/images/discovery-1.png" alt="Discovery — watch" />
             </div>
+            <div class="discoveries__card discoveries__card--br" data-index="3">
+              <img src="assets/images/curated-1.png" alt="Discovery — amber bottle" />
+            </div>
+
+            <span class="discoveries__plus discoveries__plus--1" aria-hidden="true"></span>
+            <span class="discoveries__plus discoveries__plus--2" aria-hidden="true"></span>
+            <span class="discoveries__plus discoveries__plus--3" aria-hidden="true"></span>
           </div>
         </div>
       </section>
@@ -544,7 +568,7 @@
         <div class="contact__inner">
           <div class="contact__card">
             <div class="contact__email-group">
-              <div>
+              <div class="contact__email-block">
                 <p class="contact__eyebrow">Email</p>
                 <a
                   href="mailto:hello@bissmixi.com"
@@ -663,7 +687,7 @@
 
             <div class="site-footer__newsletter-row">
               <div class="site-footer__newsletter">
-                <div>
+                <div class="site-footer__newsletter-head">
                   <h5>Stay Updated</h5>
                   <p>
                     Get the latest curated discoveries and featured Products
@@ -701,7 +725,7 @@
 
         <div class="site-footer__bottom">
           <span>© <span id="footer-year">2026</span> BiSSMiXi. All rights reserved.</span>
-          <span>Design by <a href="#">Xammin</a></span>
+          <span>Design by <a href="https://www.xammin.com" target="_blank" rel="noopener noreferrer">Xammin</a></span>
         </div>
       </div>
     </footer>

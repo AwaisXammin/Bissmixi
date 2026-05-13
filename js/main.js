@@ -46,6 +46,7 @@ import { initAbout01 } from "./modules/about01.js";
 import { initAbout02 } from "./modules/about02.js";
 import { initDiscoveries } from "./modules/discoveries.js";
 import { initContact } from "./modules/contact.js";
+import { initDropdowns } from "./modules/dropdown.js";
 
 initHeader();
 initHero();
@@ -55,6 +56,7 @@ initAbout01();
 initAbout02();
 initDiscoveries();
 initContact();
+initDropdowns();
 
 // Footer year
 const yearEl = document.getElementById("footer-year");

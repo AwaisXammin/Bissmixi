@@ -1,8 +1,8 @@
 /* ==========================================================================
    Discoveries module
-   - Ellipse 42 spotlight orbits behind 4 cards
-   - Each card gets "is-lit" when the spotlight is closest
-   - Scroll-triggered subtle rise of cards on entry
+   - Ellipse 42 fast orbital motion behind cards (oval orbit path)
+   - Card "lit" state cycles based on closest spotlight position
+   - Scroll-triggered reveal of cards and text
    ========================================================================== */
 
 export function initDiscoveries() {
@@ -17,17 +17,17 @@ export function initDiscoveries() {
   whenGsapReady(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // ---- Cards reveal on scroll ----
+    // ---- Cards reveal ----
     gsap.from(cards, {
       y: 80,
       opacity: 0,
       duration: 1.2,
-      stagger: 0.15,
+      stagger: 0.12,
       ease: "power3.out",
       scrollTrigger: { trigger: portal, start: "top 80%" },
     });
 
-    // Text column reveal
+    // Text reveal
     gsap.from(
       section.querySelectorAll(
         ".discoveries__eyebrow, .discoveries__heading, .discoveries__sub, .discoveries__cta"
@@ -36,50 +36,47 @@ export function initDiscoveries() {
         y: 40,
         opacity: 0,
         duration: 1,
-        stagger: 0.12,
+        stagger: 0.1,
         ease: "power3.out",
         scrollTrigger: { trigger: section, start: "top 70%" },
       }
     );
 
-    // ---- Spotlight orbit ----
-    // Calculate position of each card center relative to portal
-    function getCardCenter(card) {
-      const r = card.getBoundingClientRect();
-      const p = portal.getBoundingClientRect();
-      return {
-        x: r.left + r.width / 2 - p.left,
-        y: r.top + r.height / 2 - p.top,
-      };
+    // ---- Card lit-state cycling ----
+    // Portal shape itself spins via CSS; we just cycle which card is "lit"
+    // every short interval to simulate the orbiting beam passing over each one.
+    let activeIndex = 0;
+    function setLit(i) {
+      cards.forEach((c, idx) => c.classList.toggle("is-lit", idx === i));
     }
+    setLit(0);
+    let timer = setInterval(() => {
+      activeIndex = (activeIndex + 1) % cards.length;
+      setLit(activeIndex);
+    }, 1400);
 
-    function moveSpotlightTo(index) {
-      const c = getCardCenter(cards[index]);
-      gsap.to(spotlight, {
-        left: c.x,
-        top: c.y,
-        x: "-50%",
-        y: "-50%",
-        duration: 1.6,
-        ease: "power2.inOut",
-        onUpdate: () => updateLitState(index),
-      });
-    }
-
-    function updateLitState(index) {
-      cards.forEach((c, i) => c.classList.toggle("is-lit", i === index));
-    }
-
-    // Start orbit
-    let current = 0;
-    moveSpotlightTo(current);
-    setInterval(() => {
-      current = (current + 1) % cards.length;
-      moveSpotlightTo(current);
-    }, 2800);
-
-    // Recalculate on resize
-    window.addEventListener("resize", () => moveSpotlightTo(current));
+    // Pause cycling when out of view
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top 100%",
+      end: "bottom 0%",
+      onLeave: () => clearInterval(timer),
+      onLeaveBack: () => clearInterval(timer),
+      onEnter: () => {
+        clearInterval(timer);
+        timer = setInterval(() => {
+          activeIndex = (activeIndex + 1) % cards.length;
+          setLit(activeIndex);
+        }, 1400);
+      },
+      onEnterBack: () => {
+        clearInterval(timer);
+        timer = setInterval(() => {
+          activeIndex = (activeIndex + 1) % cards.length;
+          setLit(activeIndex);
+        }, 1400);
+      },
+    });
   });
 }
 
