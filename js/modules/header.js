@@ -127,7 +127,12 @@ function setupScrollState(header) {
   update();
 }
 
-/* ----- Smooth scroll for #anchors ----- */
+/* ----- Smooth scroll for #anchors -----
+   Special case for #hero: the hero is pinned by ScrollTrigger, so a regular
+   smooth scroll from any section below has to traverse the pin's scrubbable
+   range — that's the "stuck on the images" feeling when going back to top.
+   We use an INSTANT jump for #hero to bypass the pin animation. Other anchors
+   still use the normal smooth scroll. */
 function setupSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (e) => {
@@ -136,6 +141,13 @@ function setupSmoothScroll() {
       const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
+
+      if (id === "#hero") {
+        // Instant teleport to top — avoids reverse-scrubbing through the pin
+        window.scrollTo({ top: 0, behavior: "auto" });
+        return;
+      }
+
       target.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });

@@ -97,19 +97,20 @@ function setupParallax() {
   tl.to(".hero__blob",     { yPercent: 10,  duration: 2 }, 0);
 }
 
-/* ----- Circle button → scroll to next section ----- */
+/* ----- Circle button → scroll to the "Submit Your Product" form
+   (falls back to the next sibling section if #submit is missing) ----- */
 function setupScrollButton() {
   const btn = document.querySelector(".hero__scroll-btn");
   if (!btn) return;
   btn.addEventListener("click", () => {
-    const hero = document.querySelector(".hero");
-    const next = hero?.nextElementSibling;
-    if (next) next.scrollIntoView({ behavior: "smooth", block: "start" });
-    else
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: "smooth",
-      });
+    const target =
+      document.querySelector("#submit") ||
+      document.querySelector(".hero")?.nextElementSibling;
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+    }
   });
 }
 
