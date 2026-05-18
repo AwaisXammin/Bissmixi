@@ -5,11 +5,13 @@
 
 .about {
   position: relative;
-  background: var(--color-light-01);
+  background: #fff
   padding-block: clamp(80px, 9vw, 160px);
   padding-inline: var(--section-pad-x);
   overflow: hidden;
   isolation: isolate;
+  z-index: 1; /* below .hero so the bridging product image renders over its top */
+  padding: 460px 0 170px;
 }
 
 .about__inner {
@@ -72,14 +74,59 @@
   object-fit: contain;
   mix-blend-mode: multiply;
   filter: contrast(1.1) drop-shadow(0 12px 24px rgba(80, 60, 150, 0.18));
+
 }
 
+@media (max-width: 1726px) {
+ #about{
+      padding-left: 2%;
+    padding-right: 2%;
+ }
+}
+
+@media (max-width: 1190px) {
+ #about{
+          padding-top: 250px;
+    padding-bottom: 40px;
+ }
+}
+
+@media (max-width: 1280px) {
+  .about__saturn {
+    top: 34%;
+    width: clamp(110px, 14vw, 200px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .about {
+    padding-block: clamp(60px, 8vw, 120px);
+  }
+  .about__heading { max-width: 100%; }
+  .about__saturn {
+    top: auto;
+    bottom: 30%;
+    right: 4%;
+    width: clamp(110px, 18vw, 180px);
+  }
+}
+
+
+
 @media (max-width: 768px) {
+  .about__inner { gap: clamp(16px, 3vw, 24px); }
   .about__saturn {
     position: relative;
     top: auto;
     right: auto;
+    bottom: auto;
     align-self: flex-end;
-    margin-top: 24px;
+    margin-top: 50px;
+    width: clamp(96px, 20vw, 140px);
   }
+}
+
+@media (max-width: 480px) {
+  .about { padding-block: 48px; }
+  .about__eyebrow { font-size: 13px; letter-spacing: 0.3em; }
 }

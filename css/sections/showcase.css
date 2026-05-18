@@ -37,19 +37,51 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  align-items: center;
+  /* Bottom-aligned — products sit in the lower portion of the panel,
+     matching Figma's product placement (top 48–81% of hero frame). */
+  align-items: flex-end;
   justify-content: center;
   overflow: hidden;
   background: var(--showcase-bg);
 }
 
 .showcase__panel-img {
-  width: 100%;
-  height: 100%;
+  /* Default fallback — overridden per panel below */
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   object-position: center;
   display: block;
   will-change: transform;
+}
+
+/* Per-panel sizes matching Figma (relative to 1728×1313 hero frame).
+   Each product is bottom-aligned (see .showcase__panel align-items: flex-end)
+   so it sits in the lower portion of the panel like in Figma, where the
+   product's top edge is at 48% (panel 1), 70% (panel 2), or 81% (panel 3)
+   of the frame height. Max-height per panel controls how tall the visible
+   portion of the product is. */
+.showcase__panel--1 .showcase__panel-img {
+  /* Tubes — Figma: 918×1161 at top 633 (visible 52% of frame height) */
+  width: 53vw;
+  max-width: 53vw;
+  max-height: 75vh;
+}
+
+.showcase__panel--2 .showcase__panel-img {
+  /* Headphones — Figma: 535×809 at top 925 (visible 30% of frame height) */
+  width: 31vw;
+  max-width: 31vw;
+  max-height: 55vh;
+}
+
+.showcase__panel--3 .showcase__panel-img {
+  /* Audio — Figma: 711×500 at top 1063 (visible 19% of frame height) */
+  width: 41vw;
+  max-width: 41vw;
+  max-height: 38vh;
 }
 
 /* Subtle gradient bleed between panels for seamless look */

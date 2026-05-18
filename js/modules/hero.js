@@ -43,59 +43,58 @@ function animateIntro() {
     );
 }
 
-/* ----- Scroll-triggered parallax ----- */
+/* ----- Pin hero + crossfade through 3 product images ----- */
 function setupParallax() {
   if (!window.ScrollTrigger) return;
 
-  // Lavender: drifts up slower than scroll
-  gsap.to(".hero__lavender", {
-    yPercent: -25,
-    ease: "none",
+  const hero = document.querySelector(".hero");
+  const products = document.querySelector(".hero__products");
+  const p1 = document.querySelector(".hero__product--1");
+  const p2 = document.querySelector(".hero__product--2");
+  const p3 = document.querySelector(".hero__product--3");
+  if (!hero || !products || !p1 || !p2 || !p3) return;
+
+  // Master pinned timeline — pin engages only when the IMAGE center reaches
+  // the viewport center (so user scrolls past the headline first, then the
+  // page locks while images crossfade through 3 products).
+  //   trigger: the products wrapper, start: center-center
+  //   pin: the entire hero (keeps surrounding context fixed during crossfade)
+  //   end: +200% of viewport (2 "scrolls" — one per image transition)
+  //   scrub: 0.6 for silky crossfades
+  const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: ".hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
+      trigger: products,
+      start: "center center",
+      end: "+=200%",
+      pin: hero,
+      pinSpacing: true,
+      scrub: 0.6,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
     },
   });
 
-  // Watermark: subtle horizontal drift + scale on scroll
-  gsap.to(".hero__watermark", {
-    yPercent: -10,
-    scale: 1.05,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-    },
-  });
+  // Phase 1 → 2 (first half of scrub)
+  tl.to(p1, { opacity: 0, scale: 0.94, duration: 1 }, 0)
+    .fromTo(
+      p2,
+      { opacity: 0, scale: 1.05 },
+      { opacity: 1, scale: 1, duration: 1 },
+      0
+    )
+    // Phase 2 → 3 (second half of scrub)
+    .to(p2, { opacity: 0, scale: 0.94, duration: 1 }, 1)
+    .fromTo(
+      p3,
+      { opacity: 0, scale: 1.05 },
+      { opacity: 1, scale: 1, duration: 1 },
+      1
+    );
 
-  // Gradient blob: opposite-direction parallax
-  gsap.to(".hero__blob", {
-    yPercent: 15,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-    },
-  });
-
-  // Hero content slight fade on scroll out
-  gsap.to(".hero__content", {
-    opacity: 0,
-    y: -40,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".hero",
-      start: "30% top",
-      end: "bottom top",
-      scrub: true,
-    },
-  });
+  // Subtle ambient parallax that runs alongside the pin
+  tl.to(".hero__watermark", { yPercent: -8, scale: 1.04, duration: 2 }, 0);
+  tl.to(".hero__lavender", { yPercent: -18, duration: 2 }, 0);
+  tl.to(".hero__blob",     { yPercent: 10,  duration: 2 }, 0);
 }
 
 /* ----- Circle button → scroll to next section ----- */

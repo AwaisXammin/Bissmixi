@@ -95,13 +95,14 @@ export function initAbout02() {
       }
     );
 
-    // Cards reveal
+    // Cards reveal — clearProps after so the CSS hover transform can take over cleanly
     gsap.from(".about02__card", {
       y: 60,
       opacity: 0,
       duration: 1,
       stagger: 0.15,
       ease: "power3.out",
+      clearProps: "transform,opacity",
       scrollTrigger: {
         trigger: ".about02__cards",
         start: "top 80%",

@@ -11,16 +11,26 @@
      8. Hero content (heading, paragraph, circle scroll button) — top layer
    ========================================================================== */
 
+#hero {
+  padding: 250px 0px 64px !important;
+}
+
 .hero {
   position: relative;
-  min-height: var(--hero-min-height);
+  /* Taller hero so the upper half of the product image fits below the text
+     while its lower half overflows into the next (About) section.
+     Extra height = ~half the image height (image is 40vw × 50.6vw tall). */
+  min-height: calc(100vh + 22vw);
   background-color: var(--hero-bg);
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   isolation: isolate;
+  z-index: 2; /* above .about so the bottom-half of product paints over it */
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding-block: clamp(8rem, 14vw, 14rem) clamp(6rem, 10vw, 10rem);
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-block: clamp(7rem, 12vw, 12rem) clamp(2rem, 4vw, 4rem);
 }
 
 /* ============================================================
@@ -36,7 +46,7 @@
 /* 1 — Gradient blob */
 .hero__blob {
   position: absolute;
-  top: -42%;
+  top: -85%;
   left: -8%;
   width: 116%;
   height: 180%;
@@ -87,11 +97,31 @@
   opacity: 0.67;
 }
 
-.hero__shade--1 { left: 13%;  top: 38%;  background: rgba(255, 255, 255, 0.08); }
-.hero__shade--2 { left: 26%;  top: 0%;   background: rgba(255, 255, 255, 0.12); }
-.hero__shade--3 { left: 48%;  top: 19%;  background: rgba(255, 255, 255, 0.12); }
-.hero__shade--4 { left: 87%;  top: 38%;  background: rgba(255, 255, 255, 0.10); }
-.hero__shade--5 { left: 87%;  top: 5%;   background: rgba(255, 255, 255, 0.12); }
+.hero__shade--1 {
+  left: 13%;
+  top: 38%;
+  background: rgba(255, 255, 255, 0.08);
+}
+.hero__shade--2 {
+  left: 26%;
+  top: 0%;
+  background: rgba(255, 255, 255, 0.12);
+}
+.hero__shade--3 {
+  left: 48%;
+  top: 19%;
+  background: rgba(255, 255, 255, 0.12);
+}
+.hero__shade--4 {
+  left: 87%;
+  top: 38%;
+  background: rgba(255, 255, 255, 0.1);
+}
+.hero__shade--5 {
+  left: 87%;
+  top: 5%;
+  background: rgba(255, 255, 255, 0.12);
+}
 
 /* 4 — Floating water bubbles */
 .hero__bubbles {
@@ -113,14 +143,91 @@
   will-change: transform;
 }
 
-.hero__bubble--lg { width: 85px; height: 85px; right: 16%;  top: 32%; }
-.hero__bubble--md { width: 47px; height: 47px; right: 15%;  top: 55%; }
-.hero__bubble--sm { width: 28px; height: 28px; right: 22%;  top: 65%; }
+.hero__bubble--lg {
+  width: 85px;
+  height: 85px;
+  right: 16%;
+  top: 32%;
+}
+.hero__bubble--md {
+  width: 47px;
+  height: 47px;
+  right: 15%;
+  top: 55%;
+}
+.hero__bubble--sm {
+  width: 28px;
+  height: 28px;
+  right: 22%;
+  top: 65%;
+}
 
-/* 5 — Lavender flower */
+/* 5 — Product cluster (3 stacked images — JS crossfades them while hero is pinned)
+   Figma-exact: image 918×1161 in a 1728×1313 hero ⇒ width 53vw, aspect 918/1161,
+   top edge at ~48% of hero, extends ~37% past hero bottom into About. */
+.hero__products {
+  /* Slightly smaller (40vw vs 53vw) and positioned so the image's CENTER
+     sits exactly on the hero's BOTTOM edge — upper half inside hero,
+     lower half overflows into the About section. */
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  top: auto;
+  transform: translate(-50%, 50%);
+  width: clamp(360px, 40vw, 720px); /* reduced from 53vw */
+  aspect-ratio: 918 / 1161; /* native Photoroom image ratio */
+  z-index: 6; /* above watermark (which sits behind) */
+  pointer-events: none;
+  filter: drop-shadow(0 40px 60px rgba(120, 95, 200, 0.25));
+  animation: hero-products-float 7s var(--ease-in-out) infinite;
+}
+
+.hero__product {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  /* `contain` = fit the whole image inside wrapper (no top-clipping for tall PNGs) */
+  background-size: contain;
+  background-position: 50% 100%; /* anchor bottom-center */
+  will-change: opacity, transform;
+  /* Product 2 & 3 start hidden — JS will crossfade them in */
+  opacity: 0;
+}
+
+.hero__product--1 {
+  background-image: url("../../assets/images/showcase-1.png");
+  opacity: 1; /* first product visible by default */
+}
+
+/* showcase-2 is the most portrait (1070x1618) — slightly narrower wrapper width
+   so the headphones don't look oversized */
+.hero__product--2 {
+  background-image: url("../../assets/images/showcase-2.png");
+  background-size: 67% auto; /* tighter than 100% — reduces apparent width */
+}
+
+.hero__product--3 {
+  background-image: url("../../assets/images/showcase-3.png");
+  background-size: 75% auto; /* tighter than 100% — reduces apparent width */
+  background-position: center;
+}
+
+@keyframes hero-products-float {
+  /* Keeps the base 50% Y offset (so image stays centered on hero's bottom edge)
+     while gently bobbing ±12px. */
+  0%,
+  100% {
+    transform: translate(-50%, 50%);
+  }
+  50% {
+    transform: translate(-50%, calc(50% - 12px));
+  }
+}
+
+/* Lavender flower — kept on right as secondary decor */
 .hero__lavender {
   position: absolute;
-  right: 18%;
+  right: 35%;
   bottom: -6%;
   width: clamp(120px, 14vw, 264px);
   z-index: 4;
@@ -136,11 +243,16 @@
   filter: drop-shadow(0 30px 40px rgba(80, 60, 150, 0.18));
 }
 
-/* 6 — Giant BiSSMiXi watermark */
+/* 6 — Giant BiSSMiXi watermark — sits BEHIND the product image
+   Figma: top calc(50% + 286.5px) of 1313 hero = 71.8% from top */
 .hero__watermark {
+  /* Sits FULLY inside the hero, anchored to the bottom area (behind the
+     product image's upper half). bottom: clamp ensures a comfortable gap
+     from the hero's bottom edge across viewport sizes. */
   position: absolute;
   left: 50%;
-  bottom: -8%;
+  bottom: clamp(40px, 6vh, 100px);
+  top: auto;
   transform: translateX(-50%);
   font-family: var(--font-heading);
   font-weight: var(--fw-bold);
@@ -148,16 +260,16 @@
   letter-spacing: var(--hero-watermark-tracking);
   line-height: 1;
   white-space: nowrap;
-  z-index: 5;
+  z-index: 2; /* lowered: products (z:6) now render on top */
   pointer-events: none;
   user-select: none;
 
-  /* Low-opacity gradient text */
+  /* Figma-exact: gradient stops at 0.13 opacity */
   background: linear-gradient(
     90deg,
-    rgba(218, 201, 255, 0.18) 0%,
-    rgba(159, 164, 254, 0.18) 79%,
-    rgba(186, 176, 250, 0.18) 100%
+    rgba(218, 201, 255, 0.13) 0%,
+    rgba(159, 164, 254, 0.13) 79%,
+    rgba(186, 176, 250, 0.13) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -190,9 +302,12 @@
   max-width: 100%;
 }
 
+.hero__headline span.hero__headline-line.hero__headline-line--1 {
+  margin-bottom: -22px;
+}
+
 .hero__headline-line {
   display: block;
-  overflow: hidden;
 }
 
 .hero__headline-word {
@@ -242,7 +357,7 @@
   width: var(--size);
   height: var(--size);
   border-radius: var(--radius-full);
-  border: var(--hero-scroll-btn-border) solid var(--color-background);
+  border: 3px solid var(--color-background);
   background: transparent;
   color: var(--color-background);
   display: inline-flex;
@@ -258,10 +373,11 @@
 }
 
 .hero__scroll-btn:hover {
-  background: var(--color-background);
-  color: var(--color-white);
+  background: #ffffff;
+  color: #000000;
   transform: scale(1.05);
   box-shadow: 0 16px 40px rgba(25, 26, 36, 0.25);
+  border-color: #ffffff;
 }
 
 .hero__scroll-btn svg {
@@ -283,62 +399,192 @@
    Float / drift keyframes for bubbles
    ============================================================ */
 @keyframes bubble-float-a {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50%      { transform: translate3d(-8px, -14px, 0); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-8px, -14px, 0);
+  }
 }
 @keyframes bubble-float-b {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50%      { transform: translate3d(10px, -18px, 0); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(10px, -18px, 0);
+  }
 }
 @keyframes bubble-float-c {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50%      { transform: translate3d(-6px, 10px, 0); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-6px, 10px, 0);
+  }
 }
 
-.hero__bubble--lg { animation: bubble-float-a 7s var(--ease-in-out) infinite; }
-.hero__bubble--md { animation: bubble-float-b 9s var(--ease-in-out) infinite; }
-.hero__bubble--sm { animation: bubble-float-c 6s var(--ease-in-out) infinite; }
+.hero__bubble--lg {
+  animation: bubble-float-a 7s var(--ease-in-out) infinite;
+}
+.hero__bubble--md {
+  animation: bubble-float-b 9s var(--ease-in-out) infinite;
+}
+.hero__bubble--sm {
+  animation: bubble-float-c 6s var(--ease-in-out) infinite;
+}
 
 /* Gentle blob drift */
 @keyframes blob-drift {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50%      { transform: translate3d(2%, 1%, 0) scale(1.04); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, 1%, 0) scale(1.04);
+  }
 }
 
-.hero__blob { animation: blob-drift 18s var(--ease-in-out) infinite; }
+.hero__blob {
+  animation: blob-drift 18s var(--ease-in-out) infinite;
+}
 
 /* Lavender sway */
 @keyframes lavender-sway {
-  0%, 100% { transform: rotate(11.94deg) translateY(0); }
-  50%      { transform: rotate(9deg) translateY(-8px); }
+  0%,
+  100% {
+    transform: rotate(11.94deg) translateY(0);
+  }
+  50% {
+    transform: rotate(9deg) translateY(-8px);
+  }
 }
 
-.hero__lavender { animation: lavender-sway 8s var(--ease-in-out) infinite; }
+.hero__lavender {
+  animation: lavender-sway 8s var(--ease-in-out) infinite;
+}
 
 /* ============================================================
    Responsive
    ============================================================ */
+
 @media (max-width: 1280px) {
-  .hero__bubble--lg { width: 70px; height: 70px; }
-  .hero__bubble--md { width: 38px; height: 38px; }
-  .hero__bubble--sm { width: 22px; height: 22px; }
+  .hero__bubble--lg {
+    width: 70px;
+    height: 70px;
+  }
+  .hero__bubble--md {
+    width: 38px;
+    height: 38px;
+  }
+  .hero__bubble--sm {
+    width: 22px;
+    height: 22px;
+  }
+  .hero__shade {
+    width: 60px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero__bubble--lg {
+    width: 56px;
+    height: 56px;
+    right: 10%;
+  }
+  .hero__bubble--md {
+    width: 32px;
+    height: 32px;
+    right: 9%;
+  }
+  .hero__bubble--sm {
+    width: 18px;
+    height: 18px;
+    right: 16%;
+  }
+  .hero__shade {
+    width: 50px;
+  }
+  .hero__lavender {
+    right: 10%;
+    width: clamp(100px, 14vw, 180px);
+  }
 }
 
 @media (max-width: 768px) {
-  .hero__shade,
-  .hero__bubble--sm { display: none; }
+  /* Per user pref (b): keep decorations visible, scale them down */
+  .hero__bubble--lg {
+    width: 44px;
+    height: 44px;
+    right: 6%;
+    top: 26%;
+  }
+  .hero__bubble--md {
+    width: 26px;
+    height: 26px;
+    right: 6%;
+    top: 50%;
+  }
+  .hero__bubble--sm {
+    width: 14px;
+    height: 14px;
+    right: 14%;
+    top: 60%;
+  }
+  .hero__shade {
+    width: 36px;
+    opacity: 0.5;
+  }
+  /* Hide only the middle/right shades that fall outside the visible viewport */
+  .hero__shade--3 {
+    display: none;
+  }
 
-  .hero__lavender { right: 4%; width: 110px; }
+  .hero__lavender {
+    right: 4%;
+    width: clamp(78px, 14vw, 120px);
+  }
 
   .hero__watermark {
-    bottom: -4%;
+    bottom: clamp(20px, 4vh, 60px); /* fully inside on small viewports */
     font-size: clamp(80px, 26vw, 200px);
+  }
+
+  #hero {
+    padding: 200px 0px 64px !important;
   }
 }
 
 @media (max-width: 480px) {
-  .hero__bubble--md { right: 8%; }
-  .hero__bubble--lg { right: 8%; }
+  .hero__bubble--lg {
+    width: 34px;
+    height: 34px;
+    right: 6%;
+  }
+  .hero__bubble--md {
+    width: 20px;
+    height: 20px;
+    right: 8%;
+  }
+  .hero__bubble--sm {
+    width: 12px;
+    height: 12px;
+    right: 18%;
+  }
+  .hero__shade {
+    width: 28px;
+  }
+  /* Keep only 2 shades on tiny phones to avoid clutter */
+  .hero__shade--3,
+  .hero__shade--5 {
+    display: none;
+  }
+  .hero__lavender {
+    right: 2%;
+    width: 80px;
+  }
 }
 
 /* Disable heavy looping motion for reduced-motion users */

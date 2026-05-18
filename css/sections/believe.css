@@ -18,8 +18,13 @@
 }
 
 @keyframes believe-gradient-pan {
-  0%,100% { background-position: 0% 50%; }
-  50%     { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .believe__inner {
@@ -50,7 +55,9 @@
   margin: 0 auto;
 }
 
-.believe__sub strong { font-weight: var(--fw-semibold); }
+.believe__sub strong {
+  font-weight: var(--fw-semibold);
+}
 
 /* Small bubble — Ellipse 30 — top right, fully visible inside the section */
 .believe__bubble {
@@ -73,8 +80,13 @@
 }
 
 @keyframes believe-bubble {
-  0%,100% { transform: translate(0,0) scale(1); }
-  50%     { transform: translate(-12px,18px) scale(1.05); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-12px, 18px) scale(1.05);
+  }
 }
 
 /* Saturn rings — Image 80 — bottom left */
@@ -91,8 +103,13 @@
 }
 
 @keyframes believe-saturn {
-  0%,100% { transform: rotate(0deg) translateY(0); }
-  50%     { transform: rotate(8deg) translateY(-14px); }
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(8deg) translateY(-14px);
+  }
 }
 
 .believe__saturn img {
@@ -101,4 +118,75 @@
   object-fit: contain;
   mix-blend-mode: multiply;
   filter: contrast(1.1);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1280px) {
+  .believe {
+    height: clamp(480px, 56vw, 700px);
+  }
+}
+
+@media (max-width: 1310px) {
+  .believe {
+    height: clamp(560px, 40vw, 782px);
+  }
+}
+
+@media (max-width: 1098px) {
+  .believe {
+    height: clamp(445px, 40vw, 782px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .believe {
+    height: clamp(440px, 40vw, 620px);
+  }
+  .believe__bubble {
+    right: 8%;
+  }
+  .believe__saturn {
+    left: -2%;
+    opacity: 0.85;
+  }
+}
+
+@media (max-width: 768px) {
+  .believe {
+    height: auto;
+    min-height: 420px;
+    padding-block: clamp(80px, 14vw, 120px);
+  }
+  .believe__bubble {
+    top: 5%;
+    right: 6%;
+    width: 56px;
+  }
+  .believe__saturn {
+    bottom: 4%;
+    left: -4%;
+    width: clamp(90px, 22vw, 130px);
+  }
+}
+
+@media (max-width: 480px) {
+  .believe {
+    padding-block: 72px;
+  }
+  .believe__bubble {
+    width: 42px;
+  }
+  .believe__saturn {
+    width: 90px;
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 381px) {
+  .believe__saturn {
+    bottom: -8%;
+  }
 }
