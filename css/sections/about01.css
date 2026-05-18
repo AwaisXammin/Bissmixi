@@ -1,51 +1,181 @@
 /* ==========================================================================
-   Section: About 01 — Endless Options + Curated Cards w/ Ellipse 42 spotlight
+   Section: About 01 — Endless Options + Curated cards (Figma-exact)
+   Layout: light purple bg with perspective grid + dot pattern + glass shades,
+   3 rounded-rect cards (center one larger), Ellipse 42 spotlight + chromatic
+   refraction behind the center card, soft purple blob decorations.
    ========================================================================== */
 
 .about01 {
   position: relative;
-  background: linear-gradient(180deg, var(--color-light-01) 0%, var(--color-light-02) 100%);
-  padding-block: clamp(80px, 9vw, 160px);
+  /* Base = same color as previous about section's ending so top blends
+     seamlessly. Bottom blends into about02 (which starts with the same
+     light-purple color band). */
+  padding-block: clamp(60px, 7vw, 120px) clamp(80px, 10vw, 160px);
   padding-inline: var(--section-pad-x);
   overflow: hidden;
   isolation: isolate;
+  padding: 120px 0px 290px;
 }
 
+/* ============ Figma-exact background layers ============ */
+.about01__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Rectangle 6 — section bg: heavy-blurred horizontal gradient cloud
+   (#DAC9FF → #9FA4FE → #BAB0FA) — exactly matches Figma's 150px blur fill.
+   Mask fades only briefly at top and bottom edges so the cloud bleeds
+   into both adjacent sections with no visible light strip. */
+.about01__bg-cloud {
+  position: absolute;
+  /* Extend further past section bounds so the cloud bleeds into
+     about (above) and about02 (below) for seamless transition */
+  inset: -4% -5%;
+  background-size: cover;
+  /* background: linear-gradient(
+    90deg,
+    #dac9ff 0%,
+    #9fa4fe 78.9%,
+    #bab0fa 100%
+  );
+   */
+
+  /* background-image: url(../../assets/images/bg-blur-gradient.png) !important;
+   */
+
+  background:
+    linear-gradient(to bottom, #fff 05%, rgb(255 255 255 / 0%) 40%),
+    linear-gradient(to bottom, rgb(208 193 255) 40%, #191a24 90%),
+    url(../../assets/images/bg-blur-gradient.png) !important;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    black 14%,
+    black 100%
+  );
+  mask-image: linear-gradient(180deg, transparent 0%, black 14%, black 100%);
+}
+
+/* Ellipse 40 — large soft white bubble, top-left */
+.about01__bg-ellipse--lg {
+  position: absolute;
+  left: 4%;
+  top: 26%;
+  width: clamp(120px, 11vw, 180px);
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  filter: blur(38px);
+  opacity: 0.85;
+  animation: about01-bubble-float 9s var(--ease-in-out) infinite;
+  will-change: transform;
+}
+
+/* Ellipse 43 — wider soft glow behind the cards (674x449 in Figma) */
+.about01__bg-ellipse--mid {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  width: clamp(420px, 50vw, 720px);
+  aspect-ratio: 674 / 449;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+}
+
+/* Ellipse 38 — small bubble top-right */
+.about01__bg-ellipse--sm {
+  position: absolute;
+  right: 16%;
+  top: 32%;
+  width: 35px;
+  height: 35px;
+  background: #ffffff;
+  border-radius: 50%;
+  filter: blur(7px);
+  opacity: 0.85;
+  animation: about01-bubble-float 6s var(--ease-in-out) infinite reverse;
+  will-change: transform;
+}
+
+/* Ellipse 39 — tiny bubble */
+.about01__bg-ellipse--xs {
+  position: absolute;
+  right: 20%;
+  top: 43%;
+  width: 17px;
+  height: 17px;
+  background: #ffffff;
+  border-radius: 50%;
+  filter: blur(7px);
+  opacity: 0.9;
+  animation: about01-bubble-float 5s var(--ease-in-out) infinite;
+  will-change: transform;
+}
+
+@keyframes about01-bubble-float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-8px, -14px);
+  }
+}
+
+/* ============ Inner content ============ */
 .about01__inner {
+  position: relative;
+  z-index: 2;
   max-width: var(--container-max);
   margin-inline: auto;
   text-align: center;
 }
 
-/* ---- 01 indicator line ---- */
+/* ---- 01 indicator line + number ---- */
 .about01__indicator {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 11px;
-  width: 100%;
-  max-width: 1735px;
-  margin-inline: auto;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   margin-bottom: clamp(28px, 3vw, 47px);
 }
 
 .about01__line {
   flex: 1;
   height: 1px;
-  background: rgba(25, 26, 36, 0.5);
+  background: rgba(25, 26, 36, 0.4);
   transform-origin: center;
   transform: scaleX(0);
   will-change: transform;
 }
 
-.about01__line--left { transform-origin: right center; }
-.about01__line--right { transform-origin: left center; }
+.about01__line--left {
+  transform-origin: right center;
+}
+.about01__line--right {
+  transform-origin: left center;
+}
 
 .about01__num {
   flex-shrink: 0;
   font-family: var(--font-body);
   font-weight: var(--fw-regular);
-  font-size: clamp(20px, 1.55vw, 27px);
+  font-size: clamp(20px, 1.55vw, 25px);
   line-height: 1.21;
   color: var(--color-background);
   opacity: 0;
@@ -67,82 +197,145 @@
 
 .about01__sub {
   font-family: var(--font-body);
-  font-size: clamp(16px, 1.5vw, 26px);
+  font-size: clamp(15px, 1.2vw, 20px);
   line-height: 1.4;
   color: var(--color-background);
   max-width: 884px;
-  margin: 0 auto clamp(60px, 8vw, 120px);
+  margin: 0 auto clamp(40px, 5vw, 80px);
 }
 
-.about01__sub strong { font-weight: var(--fw-semibold); }
+.about01__sub strong {
+  font-weight: var(--fw-semibold);
+}
 
-/* ---- Cards stage ---- */
+/* ============ Cards stage ============ */
 .about01__stage {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(8px, 1vw, 14px);
-  height: clamp(360px, 38vw, 580px);
+  gap: clamp(8px, 0.8vw, 14px);
   max-width: 1480px;
   margin-inline: auto;
+  min-height: 500px;
 }
 
-/* Ellipse 42 — the gradient spotlight bubble — sits behind active card */
+/* Ellipse 42 — large spotlight portal behind active card.
+   GSAP owns the transform (xPercent/yPercent) to keep centering correct
+   while animating the `left` value to follow the active card. */
 .about01__spotlight {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(380px, 48vw, 830px);
-  aspect-ratio: 1.025 / 1;
-  background: radial-gradient(
-    circle at center,
-    rgba(218, 201, 255, 0.55) 0%,
-    rgba(159, 164, 254, 0.42) 35%,
-    rgba(186, 176, 250, 0.28) 60%,
-    rgba(186, 176, 250, 0) 80%
-  );
-  filter: blur(20px);
+  /* Sized to hug the active card (~110% of card dimensions) */
+  width: clamp(280px, 32vw, 540px);
+  aspect-ratio: 1 / 1.16;
+  /* Slight rotation matching Figma's tilted oval */
+  --tilt: -8deg;
+  transform: translate(-50%, -50%) translate(0px, -0.193px) rotate(46deg) !important;
+  box-shadow: 62px 35px 139.3px 31px rgba(133, 116, 188, 1);
+  border-radius: 100%;
+  width: 487.03px;
+  height: 680.7px;
+
   pointer-events: none;
-  z-index: 1;
-  will-change: transform;
-  transition: transform 1s var(--ease-out);
-  border-radius: 50%;
+  /* ABOVE the cards so backdrop-filter distorts them through the lens */
+  z-index: 4;
+  will-change: transform, left;
 }
 
-/* Each card */
+/* Glass lens — uses an SVG displacement filter on a backdrop-filter to
+   refract whatever sits behind the ellipse. Kept very minimal so the
+   card image remains clearly visible (no fog, no frost). */
+.about01__spotlight-glass {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* Only the lens distortion — no extra blur, no saturation overlay */
+  -webkit-backdrop-filter: url(#about01-lens);
+  backdrop-filter: url(#about01-lens);
+  /* Background fully transparent so the card behind shows through */
+  background: transparent;
+  /* Thin glass rim + soft outer drop-shadow (no heavy inset frost) */
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 24px 60px rgba(80, 60, 150, 0.2);
+}
+
+/* Chromatic refraction at the rim — 3 thin colored rings (R, G, B-ish)
+   slightly offset & rotated to simulate prismatic dispersion */
+.about01__spotlight-ring {
+  position: absolute;
+  inset: -1%;
+  border-radius: 50%;
+  pointer-events: none;
+  /* Mask to a thin ring around the edge */
+  -webkit-mask: radial-gradient(
+    ellipse at center,
+    transparent 88%,
+    black 92%,
+    black 99%,
+    transparent 100%
+  );
+  mask: radial-gradient(
+    ellipse at center,
+    transparent 88%,
+    black 92%,
+    black 99%,
+    transparent 100%
+  );
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 140, 200, 0.7) 0deg,
+    rgba(255, 220, 180, 0.6) 60deg,
+    rgba(200, 255, 220, 0.5) 120deg,
+    rgba(180, 230, 255, 0.6) 180deg,
+    rgba(200, 180, 255, 0.7) 240deg,
+    rgba(255, 180, 230, 0.7) 300deg,
+    rgba(255, 140, 200, 0.7) 360deg
+  );
+  filter: blur(1.5px);
+  animation: about01-ring-rotate 14s linear infinite;
+}
+
+@keyframes about01-ring-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Each card ---- */
 .about01__card {
   position: relative;
+  z-index: 2;
   flex: 0 0 auto;
-  width: clamp(220px, 28vw, 486px);
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  width: clamp(180px, 22vw, 362px);
+  aspect-ratio: 361 / 311;
+  border-radius: 28px;
   overflow: hidden;
   cursor: pointer;
-  z-index: 2;
   background: var(--color-light-01);
-  filter: blur(6px) brightness(0.85);
-  transform: scale(0.78);
-  opacity: 0.7;
+  box-shadow: 0 18px 36px rgba(80, 60, 150, 0.18);
+  filter: blur(5px) brightness(0.85);
+  transform: scale(0.95);
+  opacity: 0.55;
   transition:
     filter 0.8s var(--ease-out),
     transform 0.8s var(--ease-out),
-    opacity 0.8s var(--ease-out);
+    opacity 0.8s var(--ease-out),
+    box-shadow 0.8s var(--ease-out);
   will-change: filter, transform;
+  border: 4px solid #ffffff1f;
 }
 
 .about01__card.is-active {
+  width: clamp(240px, 30vw, 489px);
+  aspect-ratio: 489 / 421;
   filter: blur(0) brightness(1);
   transform: scale(1);
   opacity: 1;
   z-index: 3;
-}
-
-/* Side cards offset slightly */
-.about01__card--prev,
-.about01__card--next {
-  width: clamp(180px, 22vw, 362px);
+  box-shadow: 0 30px 60px rgba(80, 60, 150, 0.25);
 }
 
 .about01__card img {
@@ -152,34 +345,105 @@
   transition: transform 1.2s var(--ease-out);
 }
 
-.about01__card:hover img { transform: scale(1.04); }
+.about01__card:hover img {
+  transform: scale(1.04);
+}
 
 .about01__card-label {
   position: absolute;
   left: 50%;
-  bottom: 14%;
+  bottom: 0px;
+  background: #fff;
+  color: #000 !important;
+  padding: 10px 0px;
+  width: 100%;
   transform: translateX(-50%);
   font-family: var(--font-body);
   font-weight: var(--fw-semibold);
-  font-size: clamp(10px, 0.8vw, 14px);
-  letter-spacing: 0.22em;
+  font-size: clamp(11px, 0.85vw, 14px);
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-white);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
   opacity: 0;
   transition: opacity 0.6s var(--ease-out) 0.3s;
   white-space: nowrap;
 }
 
-.about01__card.is-active .about01__card-label { opacity: 1; }
+.about01__card.is-active .about01__card-label {
+  opacity: 1;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 1024px) {
+  .about01__card {
+    width: clamp(160px, 26vw, 280px);
+  }
+  .about01__card.is-active {
+    width: clamp(240px, 36vw, 380px);
+  }
+}
+
+@media (max-width: 1380px) {
+  .about01__spotlight {
+    transform: translate(-50%, -50%) translate(0px, -0.193px) rotate(46deg)
+      scale(0.8) !important;
+  }
+}
+
+@media (max-width: 1144px) {
+  .about01__spotlight {
+    transform: translate(-50%, -50%) translate(0px, -0.193px) rotate(46deg)
+      scale(0.7) !important;
+  }
+}
+
+@media (max-width: 1036px) {
+  .about01 {
+    padding-bottom: 140px;
+  }
+}
+
+@media (max-width: 960px) {
+  .about01__spotlight {
+    transform: translate(-50%, -50%) translate(0px, -0.193px) rotate(46deg)
+      scale(0.6) !important;
+  }
+}
 
 @media (max-width: 768px) {
   .about01__stage {
     flex-direction: column;
-    height: auto;
-    gap: 20px;
+    min-height: 0;
+    gap: 18px;
   }
-  .about01__card { width: 280px; }
-  .about01__card--prev,
-  .about01__card--next { width: 240px; }
+  .about01__card {
+    width: 280px;
+  }
+  .about01__card.is-active {
+    width: 320px;
+  }
+  .about01__spotlight {
+    display: none;
+  }
+  .about01__bubble--lg,
+  .about01__bubble--sm,
+  .about01__bubble--xs {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about01__spotlight-ring,
+  .about01__bubble--lg,
+  .about01__bubble--sm,
+  .about01__bubble--xs {
+    animation: none !important;
+  }
+}
+
+@media (max-width: 656px) {
+  #about01 .about01__inner .about01__heading,
+  #about01 .about01__inner .about01__sub {
+    padding: 0 3%;
+  }
 }

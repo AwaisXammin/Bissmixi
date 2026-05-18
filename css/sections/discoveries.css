@@ -115,14 +115,18 @@
 
 .discoveries__sub {
   font-family: var(--font-body);
-  font-size: clamp(15px, 1.4vw, 22px);
+  /* Match the standard section-body scale used by about/about02/brands/contact/believe */
+  font-size: clamp(15px, 1.5vw, 26px);
   line-height: 1.4;
   color: var(--color-white);
   max-width: 564px;
   margin-bottom: clamp(10px, 1vw, 16px);
+  margin-bottom: 0;
 }
 
-.discoveries__sub strong { font-weight: var(--fw-semibold); }
+.discoveries__sub strong {
+  font-weight: var(--fw-semibold);
+}
 
 .discoveries__cta {
   display: inline-flex;
@@ -137,7 +141,9 @@
   font-size: 15px;
   color: var(--color-background);
   text-transform: capitalize;
-  transition: transform var(--duration-fast), box-shadow var(--duration-base);
+  transition:
+    transform var(--duration-fast),
+    box-shadow var(--duration-base);
 }
 
 .discoveries__cta:hover {
@@ -201,17 +207,51 @@
   will-change: transform;
 }
 
-/* Glass blur layer — backdrop-filtered region clipped to the SVG shape */
+/* Glass blur layer — original behavior restored.
+   The real liquid-glass distortion is now done by `.discoveries__lens`
+   below (which sits ABOVE the cards so backdrop-filter has something
+   to refract). */
 .discoveries__glass-blur {
   position: absolute;
   inset: 0;
-  /* Backdrop-blur clipped through the SVG's ellipse mask so only the area
-     inside the portal shape blurs whatever is behind it */
-  -webkit-mask: url("../../assets/images/ellipse-portal.svg") center / contain no-repeat;
-          mask: url("../../assets/images/ellipse-portal.svg") center / contain no-repeat;
+  -webkit-mask: url("../../assets/images/ellipse-portal.svg") center / contain
+    no-repeat;
+  mask: url("../../assets/images/ellipse-portal.svg") center / contain no-repeat;
   -webkit-backdrop-filter: blur(14px) saturate(1.25);
   backdrop-filter: blur(14px) saturate(1.25);
   background: rgba(218, 201, 255, 0.06);
+}
+
+/* ============================================================
+   Liquid-glass lens — placed AFTER the cards in DOM so it sits
+   above them in stacking order. backdrop-filter then refracts
+   the cards behind it through the same #about01-lens filter
+   used in the About 01 spotlight, giving an identical liquid
+   glass distortion. The element is otherwise invisible — no
+   rim, no background — so only the SVG portal outline reads as
+   the visible portal frame.
+   ============================================================ */
+.discoveries__lens {
+  /* Match the portal-glass's outer bounding box exactly */
+  position: absolute;
+  top: 46%;
+  left: 45%;
+  width: 94%;
+  aspect-ratio: 452 / 920;
+  transform: translate(-50%, -50%) rotate(20deg);
+  pointer-events: none;
+  z-index: 5; /* ABOVE cards (z:3) so backdrop-filter has them to filter */
+}
+
+/* Inner element shaped like the SVG portal's interior ellipse.
+   ellipse-portal.svg has the visible ellipse at ~57% width × ~73% height
+   of its viewBox ⇒ inset 21.5% horizontally, 13.5% vertically. */
+.discoveries__lens-glass {
+  position: absolute;
+  inset: 13.5% 21.5%;
+  border-radius: 50%;
+  -webkit-backdrop-filter: url(#about01-lens);
+  backdrop-filter: url(#about01-lens);
 }
 
 /* The static glass shape — never rotates, just sits tilted */
@@ -227,10 +267,7 @@
   height: 100%;
   display: block;
   /* Boost the SVG's stroke and glow significantly so the portal reads clearly */
-  filter:
-    brightness(1.9)
-    saturate(1.35)
-    contrast(1.15)
+  filter: brightness(1.9) saturate(1.35) contrast(1.15)
     drop-shadow(0 0 40px rgba(159, 164, 254, 0.65));
 }
 
@@ -257,8 +294,12 @@
 }
 
 @keyframes discoveries-flow {
-  0%   { background-position: 0% 0%; }
-  100% { background-position: 0% -200%; }
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% -200%;
+  }
 }
 
 /* Conic gradient layer rotating inside the portal — chromatic shimmer */
@@ -284,8 +325,12 @@
 }
 
 @keyframes discoveries-conic {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Outer breathing halo behind everything */
@@ -311,7 +356,8 @@
 }
 
 @keyframes discoveries-halo {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 0.8;
   }
@@ -354,7 +400,9 @@
   transition: transform 1.2s var(--ease-out);
 }
 
-.discoveries__card.is-lit img { transform: scale(1.04); }
+.discoveries__card.is-lit img {
+  transform: scale(1.04);
+}
 
 /* Asymmetric absolute positioning matching Figma diagonal pattern:
    tall TL  | short TR
@@ -374,13 +422,13 @@
   z-index: 3;
 }
 .discoveries__card--bl {
-  bottom: 0;
+  bottom: -20px;
   left: 0;
   height: 43%;
   z-index: 3;
 }
 .discoveries__card--br {
-  bottom: 0;
+  bottom: -20px;
   right: 0;
   height: 57%;
   z-index: 3;
@@ -441,8 +489,15 @@
 }
 
 @keyframes discoveries-plus {
-  0%, 100% { transform: translate(0,0) rotate(0deg); opacity: 0.4; }
-  50%      { transform: translate(8px,-12px) rotate(45deg); opacity: 0.7; }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(8px, -12px) rotate(45deg);
+    opacity: 0.7;
+  }
 }
 
 /* ============================================================
@@ -456,20 +511,29 @@
   .discoveries {
     padding-block: clamp(80px, 9vw, 160px);
   }
-  .discoveries__inner { gap: clamp(32px, 4vw, 64px); }
-  .discoveries__heading { font-size: clamp(40px, 4.2vw, 60px); }
-  .discoveries__portal { max-width: 500px; }
-  .discoveries__shade { width: 60px; height: 60px; }
+  .discoveries__inner {
+    gap: clamp(32px, 4vw, 64px);
+  }
+  /* Typography stays on base clamp() so it matches every other section.
+     Only structural sizes (portal/shades) get downscaled at this breakpoint. */
+  .discoveries__portal {
+    max-width: 500px;
+  }
+  .discoveries__shade {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 /* Tablet (768–1023px) — stack to single column, center text */
 @media (max-width: 1023px) {
   .discoveries {
     padding-block: clamp(64px, 7vw, 100px);
+    padding-bottom: 170px;
   }
   .discoveries__inner {
     grid-template-columns: 1fr;
-    gap: 64px; /* Clear space between text block and portal */
+    gap: 200px; /* Clear space between text block and portal */
     text-align: center;
   }
   .discoveries__inner > div:first-child {
@@ -477,9 +541,11 @@
     flex-direction: column;
     align-items: center;
   }
-  .discoveries__eyebrow { margin-bottom: 16px; }
+  .discoveries__eyebrow {
+    margin-bottom: 16px;
+  }
   .discoveries__heading {
-    font-size: clamp(36px, 5.5vw, 52px);
+    /* font-size stays on base clamp() — matches other sections at this breakpoint */
     max-width: 700px;
     margin-bottom: 14px;
   }
@@ -493,9 +559,21 @@
     margin-inline: auto;
   }
   /* Constrain halo so it doesn't bleed up into the button area */
-  .discoveries__halo { width: 110%; height: 100%; }
-  .discoveries__shade { width: 50px; height: 50px; }
-  .discoveries__shade--3 { display: none; } /* hide middle shade on tablet */
+  .discoveries__halo {
+    width: 110%;
+    height: 100%;
+  }
+  .discoveries__shade {
+    width: 50px;
+    height: 50px;
+  }
+  .discoveries__shade--3 {
+    display: none;
+  } /* hide middle shade on tablet */
+
+  .discoveries__cta {
+    transform: translate(0px, 10px);
+  }
 }
 
 /* Large mobile (480–767px) */
@@ -503,20 +581,19 @@
   .discoveries {
     padding-block: 48px;
     padding-inline: 20px;
+    padding-bottom: 170px;
   }
-  .discoveries__inner { gap: 56px; }
+  .discoveries__inner {
+    gap: 120px;
+  }
   .discoveries__eyebrow {
-    font-size: 12px;
-    letter-spacing: 0.28em;
+    /* Typography sizes now inherit from base clamp() so they match other sections */
     margin-bottom: 12px;
   }
   .discoveries__heading {
-    font-size: clamp(26px, 7vw, 36px);
-    line-height: 1.1;
     margin-bottom: 10px;
   }
   .discoveries__sub {
-    font-size: 14px;
     margin-bottom: 14px;
   }
   .discoveries__cta {
@@ -528,28 +605,54 @@
     position: relative;
     z-index: 5;
   }
-  .discoveries__cta-icon { width: 34px; height: 34px; }
-  .discoveries__cta-icon svg { width: 13px; height: 13px; }
+  .discoveries__cta-icon {
+    width: 34px;
+    height: 34px;
+  }
+  .discoveries__cta-icon svg {
+    width: 13px;
+    height: 13px;
+  }
 
   .discoveries__portal {
     max-width: 380px;
     width: 100%;
   }
-  .discoveries__portal-glass { width: 100%; }
-  .discoveries__card { border-radius: 14px; }
-  .discoveries__shade { width: 36px; height: 36px; border-width: 1.5px; }
+  .discoveries__portal-glass {
+    width: 100%;
+  }
+  .discoveries__card {
+    border-radius: 14px;
+  }
+  .discoveries__shade {
+    width: 36px;
+    height: 36px;
+    border-width: 1.5px;
+  }
   /* keep only 2 shades on mobile to reduce clutter */
   .discoveries__shade--1,
-  .discoveries__shade--4 { display: none; }
-  .discoveries__plus { width: clamp(16px, 3.5vw, 22px); }
+  .discoveries__shade--4 {
+    display: none;
+  }
+  .discoveries__plus {
+    width: clamp(16px, 3.5vw, 22px);
+  }
   /* Constrain halo to portal bounds so it doesn't poke past the button */
-  .discoveries__halo { width: 100%; height: 95%; opacity: 0.85; }
+  .discoveries__halo {
+    width: 100%;
+    height: 95%;
+    opacity: 0.85;
+  }
 
   /* Slightly tighten the row gap further on mobile */
   .discoveries__card--tl,
-  .discoveries__card--br { height: 58%; }
+  .discoveries__card--br {
+    height: 58%;
+  }
   .discoveries__card--tr,
-  .discoveries__card--bl { height: 41%; }
+  .discoveries__card--bl {
+    height: 41%;
+  }
 }
 
 /* Small mobile (<480px) */
@@ -557,16 +660,19 @@
   .discoveries {
     padding-block: 40px;
     padding-inline: 14px;
+    padding-bottom: 170px;
   }
-  .discoveries__inner { gap: 20px; }
-  .discoveries__eyebrow { margin-bottom: 10px; font-size: 11px; }
+  .discoveries__inner {
+    gap: 20px;
+  }
+  .discoveries__eyebrow {
+    /* Typography sizes inherit from base clamp() so they match other sections */
+    margin-bottom: 10px;
+  }
   .discoveries__heading {
-    font-size: clamp(22px, 7.5vw, 28px);
-    letter-spacing: -0.02em;
     margin-bottom: 8px;
   }
   .discoveries__sub {
-    font-size: 13px;
     line-height: 1.45;
     margin-bottom: 12px;
   }
@@ -576,21 +682,41 @@
     padding: 4px 4px 4px 18px;
     gap: 8px;
   }
-  .discoveries__cta-icon { width: 32px; height: 32px; }
-  .discoveries__cta-icon svg { width: 12px; height: 12px; }
+  .discoveries__cta-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .discoveries__cta-icon svg {
+    width: 12px;
+    height: 12px;
+  }
 
-  .discoveries__portal { max-width: 320px; }
-  .discoveries__card { border-radius: 12px; }
+  .discoveries__portal {
+    max-width: 320px;
+  }
+  .discoveries__card {
+    border-radius: 12px;
+  }
   .discoveries__shade--2,
-  .discoveries__shade--5 { display: none; }
-  .discoveries__portal-glass { width: 105%; }
+  .discoveries__shade--5 {
+    display: none;
+  }
+  .discoveries__portal-glass {
+    width: 105%;
+  }
 }
 
 /* Reduce decorative animations on small screens to save battery */
 @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
-  .discoveries__halo { animation-duration: 9s; }
-  .discoveries__portal-glass::before { animation-duration: 6s; }
-  .discoveries__portal-glass::after { animation-duration: 10s; }
+  .discoveries__halo {
+    animation-duration: 9s;
+  }
+  .discoveries__portal-glass::before {
+    animation-duration: 6s;
+  }
+  .discoveries__portal-glass::after {
+    animation-duration: 10s;
+  }
 }
 
 /* Respect reduced motion */

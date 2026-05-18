@@ -254,3 +254,135 @@ a:hover {
   opacity: 0;
   transform: translateY(40px);
 }
+
+/* ==========================================================================
+   Custom Branded Scrollbar
+   Thin gradient thumb on a soft track — works on Chrome/Safari/Edge + Firefox.
+   ========================================================================== */
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-2) rgba(25, 26, 36, 0.06);
+}
+
+/* WebKit (Chrome / Safari / Edge / etc.) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(25, 26, 36, 0.04);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 100px;
+  /* Inset border creates a subtle gutter around the thumb */
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background var(--duration-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9fa4fe 0%, #bab0fa 100%);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ==========================================================================
+   Custom Cursor — dot + ring follower
+   Visible only on devices with a fine pointer (i.e. mouse). On touch/mobile,
+   the default native cursor handling stays untouched.
+   ========================================================================== */
+
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate3d(-50%, -50%, 0);
+  display: none; /* shown only on hover-capable devices via media query */
+  will-change: transform, width, height, opacity;
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(159, 164, 254, 0.85);
+  border-radius: 50%;
+  background: transparent;
+  /* Mix-blend so the ring reads on both light + dark sections */
+  mix-blend-mode: difference;
+  transition:
+    width 0.28s var(--ease-out),
+    height 0.28s var(--ease-out),
+    background 0.28s var(--ease-out),
+    border-color 0.28s var(--ease-out);
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-background);
+  border-radius: 50%;
+  mix-blend-mode: difference;
+  transition:
+    width 0.2s var(--ease-out),
+    height 0.2s var(--ease-out),
+    opacity 0.2s var(--ease-out);
+}
+
+/* Show only when the user is on a device with a real pointer */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-ring,
+  .cursor-dot { display: block; }
+  /* Hide the native cursor so only ours shows */
+  body,
+  a, button, input, textarea, select, label,
+  [data-cursor-hover] {
+    cursor: none;
+  }
+}
+
+/* Hover state — ring expands and fills, dot disappears */
+.cursor-ring.is-hover {
+  width: 56px;
+  height: 56px;
+  background: rgba(218, 201, 255, 0.18);
+  border-color: rgba(218, 201, 255, 0.9);
+}
+
+.cursor-dot.is-hover {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+/* Pressed state — ring quickly shrinks */
+.cursor-ring.is-press {
+  width: 24px;
+  height: 24px;
+}
+
+/* Out-of-window — fade both elements */
+.cursor-ring.is-out,
+.cursor-dot.is-out {
+  opacity: 0;
+}
+
+/* Respect reduced-motion preferences — disable the smooth follow + transitions */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring,
+  .cursor-dot {
+    display: none !important;
+  }
+  body, a, button, input, textarea, select, label, [data-cursor-hover] {
+    cursor: auto;
+  }
+}

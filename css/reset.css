@@ -22,13 +22,18 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Guard against any rogue element causing a horizontal scroll bar
+     (e.g. wide watermarks, negative-positioned decor) */
+  overflow-x: clip;
 }
 
 body {
   min-height: 100vh;
   min-height: 100dvh;
   line-height: 1.5;
-  overflow-x: hidden;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
 }
 
 img,

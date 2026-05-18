@@ -40,23 +40,23 @@ whenGsapReady(() => {
 // ----- Section modules -----
 import { initHeader } from "./modules/header.js";
 import { initHero } from "./modules/hero.js";
-import { initShowcase } from "./modules/showcase.js";
 import { initAbout } from "./modules/about.js";
 import { initAbout01 } from "./modules/about01.js";
 import { initAbout02 } from "./modules/about02.js";
 import { initDiscoveries } from "./modules/discoveries.js";
 import { initContact } from "./modules/contact.js";
 import { initDropdowns } from "./modules/dropdown.js";
+import { initCursor } from "./modules/cursor.js";
 
 initHeader();
 initHero();
-initShowcase();
 initAbout();
 initAbout01();
 initAbout02();
 initDiscoveries();
 initContact();
 initDropdowns();
+initCursor();
 
 // Footer year
 const yearEl = document.getElementById("footer-year");

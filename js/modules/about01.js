@@ -29,16 +29,21 @@ export function initAbout01() {
         c.classList.add("about01__card--next");
     });
 
-    // Move spotlight to active card center
+    // Move spotlight to be centered on the active card
     if (window.gsap) {
       const rect = cards[activeIndex].getBoundingClientRect();
       const stageRect = section
         .querySelector(".about01__stage")
         .getBoundingClientRect();
       const cx = rect.left + rect.width / 2 - stageRect.left;
+      const cy = rect.top + rect.height / 2 - stageRect.top;
       gsap.to(spotlight, {
         left: cx,
-        x: "-50%",
+        top: cy,
+        xPercent: -50,
+        yPercent: -50,
+        /* Preserve the CSS-defined tilt while GSAP owns the transform */
+        rotation: -8,
         duration: 1,
         ease: "power3.out",
       });
@@ -56,7 +61,7 @@ export function initAbout01() {
         paused = false;
         startAuto();
       }, 6000);
-    })
+    }),
   );
 
   function startAuto() {
@@ -87,13 +92,27 @@ export function initAbout01() {
       .to(num, { opacity: 1, y: 0, duration: 0.6 }, "-=0.5")
       .from(
         section.querySelectorAll(".about01__heading, .about01__sub"),
-        { y: 30, opacity: 0, duration: 0.9, stagger: 0.12 },
-        "-=0.4"
+        {
+          y: 30,
+          opacity: 0,
+          duration: 0.9,
+          stagger: 0.12,
+          clearProps: "transform,opacity",
+        },
+        "-=0.4",
       )
       .from(
         cards,
-        { y: 60, opacity: 0, duration: 1, stagger: 0.1 },
-        "-=0.5"
+        {
+          y: 60,
+          opacity: 0,
+          duration: 0.1,
+          stagger: 0.1,
+          /* Clear inline styles after animation so CSS active/inactive
+             states (opacity 0.7/1, blur, scale) take over cleanly */
+          clearProps: "transform,opacity",
+        },
+        "-=0.5",
       );
 
     // Recalc spotlight position on resize
