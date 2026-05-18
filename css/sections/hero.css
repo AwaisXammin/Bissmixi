@@ -489,6 +489,16 @@
 }
 
 @media (max-width: 1024px) {
+  /* Tighter hero on tablet — reduces empty space below the button.
+     max() ensures the hero stays tall enough on short viewports to
+     fit text + button + the top-half of the product image without overlap. */
+  #hero {
+    padding: 180px 0 48px !important;
+  }
+  .hero {
+    min-height: max(900px, 88vh);
+  }
+
   .hero__bubble--lg {
     width: 56px;
     height: 56px;
@@ -552,12 +562,32 @@
     font-size: clamp(80px, 26vw, 200px);
   }
 
+  /* Tighter hero on mobile — content sits closer to the product image */
   #hero {
-    padding: 200px 0px 64px !important;
+    padding: 140px 0px 32px !important;
+  }
+  .hero {
+    min-height: max(820px, 88vh);
+  }
+  .hero__content {
+    gap: clamp(20px, 4vw, 32px);
+  }
+}
+
+@media (max-width: 676px) {
+  #hero {
+    padding: 200px 0px 30px !important;
   }
 }
 
 @media (max-width: 480px) {
+  /* Smallest phones — keep hero compact so it doesn't feel half-empty */
+  #hero {
+    padding: 120px 0 24px !important;
+  }
+  .hero {
+    min-height: max(760px, 90vh);
+  }
   .hero__bubble--lg {
     width: 34px;
     height: 34px;
