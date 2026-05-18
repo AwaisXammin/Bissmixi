@@ -580,6 +580,12 @@
   }
 }
 
+@media (max-width: 450px) {
+  .hero__headline span.hero__headline-line.hero__headline-line--1 {
+    margin-bottom: 0px !important;
+  }
+}
+
 @media (max-width: 480px) {
   /* Smallest phones — keep hero compact so it doesn't feel half-empty */
   #hero {
