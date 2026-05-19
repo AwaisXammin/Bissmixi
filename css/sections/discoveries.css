@@ -318,7 +318,7 @@
     rgba(218, 201, 255, 0) 360deg
   );
   filter: blur(34px);
-  animation: discoveries-conic 7s linear infinite;
+  /* Rotation animation removed — conic gradient sits static behind the portal */
   z-index: -2;
   mix-blend-mode: screen;
   opacity: 0.85;
@@ -714,9 +714,7 @@
   .discoveries__portal-glass::before {
     animation-duration: 6s;
   }
-  .discoveries__portal-glass::after {
-    animation-duration: 10s;
-  }
+  /* ::after no longer animates — see rule above */
 }
 
 /* Respect reduced motion */

@@ -143,8 +143,34 @@ function setupSmoothScroll() {
       e.preventDefault();
 
       if (id === "#hero") {
-        // Instant teleport to top — avoids reverse-scrubbing through the pin
-        window.scrollTo({ top: 0, behavior: "auto" });
+        // Instant teleport to top — `instant` overrides the global
+        // `scroll-behavior: smooth` so this is truly a jump, not a slow
+        // glide that scrubs through the hero pin in reverse.
+        window.scrollTo({ top: 0, behavior: "instant" });
+        // Force a clean reset on the hero: clear all inline GSAP styles
+        // that any pin/intro tween left behind, then let ScrollTrigger
+        // recalculate. Without this, when the page was reloaded mid-scroll,
+        // pin tweens stay rendered at their "end" state (watermark/lavender
+        // shifted, products faded out) even after scrolling back to top.
+        if (window.gsap) {
+          requestAnimationFrame(() => {
+            gsap.set(
+              [
+                ".hero__product--1",
+                ".hero__product--2",
+                ".hero__product--3",
+                ".hero__watermark",
+                ".hero__lavender",
+                ".hero__blob",
+                ".hero__headline-word",
+                ".hero__subhead",
+                ".hero__scroll-btn",
+              ],
+              { clearProps: "all" }
+            );
+            if (window.ScrollTrigger) ScrollTrigger.refresh();
+          });
+        }
         return;
       }
 

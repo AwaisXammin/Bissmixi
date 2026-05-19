@@ -11,6 +11,44 @@
 
     <title>BiSSMixi</title>
 
+    <!-- Run BEFORE anything else:
+         1. Stop the browser from restoring the previous scroll position
+            on reload.
+         2. ALWAYS start the page at the top so ScrollTrigger initializes
+            cleanly at scrollY=0 (the hero pin starts at progress 0).
+         3. If the URL has an anchor hash, defer the scroll until AFTER the
+            page has loaded and ScrollTrigger has init'd — then smoothly
+            scroll to the target. This avoids the pin getting stuck in its
+            "end" state when arriving from a hash link (e.g. Privacy →
+            Discover) and the hero looking empty when scrolling back up. -->
+    <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      // Always start at top. Capture the hash if present so we can scroll
+      // to it AFTER the page is fully loaded.
+      var __deferredHash = window.location.hash;
+      window.scrollTo(0, 0);
+      if (__deferredHash) {
+        // Strip the hash from the URL so the browser doesn't try to jump
+        // to it on its own.
+        try {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        } catch (_e) {}
+        window.addEventListener("load", function () {
+          // Wait a frame so GSAP/ScrollTrigger have settled at scroll 0
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              var target = document.querySelector(__deferredHash);
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            });
+          });
+        });
+      }
+    </script>
+
     <!-- Favicon (placeholder — replace with real asset) -->
     <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg" />
 

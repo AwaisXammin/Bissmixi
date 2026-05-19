@@ -323,7 +323,9 @@
   filter: brightness(1.2) saturate(1.1);
 }
 
-/* Animated traveling-border — clockwise gradient */
+/* Drawing-border animation — colored arc grows clockwise from the top
+   over the full revolution, leaving the gradient trail behind it.
+   When the animation completes, the entire box has a full gradient border. */
 .about02__card::before {
   content: "";
   position: absolute;
@@ -331,12 +333,12 @@
   border-radius: 24px;
   padding: 2px;
   background: conic-gradient(
-    from var(--angle, 0deg),
-    transparent 0deg,
-    transparent 240deg,
-    #dac9ff 280deg,
-    #9fa4fe 320deg,
-    #bab0fa 360deg
+    from 0deg,
+    #dac9ff 0deg,
+    #9fa4fe calc(var(--fill, 360deg) / 2),
+    #bab0fa var(--fill, 360deg),
+    transparent var(--fill, 360deg),
+    transparent 360deg
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -344,21 +346,23 @@
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  animation: about02-card-border 3s linear infinite;
+  /* Plays ONCE on render, retains the fully-drawn border after. */
+  animation: about02-card-fill 2.6s ease-out 1 forwards;
   z-index: 1;
 }
 
-/* Static base border removed — only the animated traveling-border remains */
-
-@property --angle {
+@property --fill {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
 
-@keyframes about02-card-border {
+@keyframes about02-card-fill {
+  from {
+    --fill: 0deg;
+  }
   to {
-    --angle: 360deg;
+    --fill: 360deg;
   }
 }
 
