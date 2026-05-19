@@ -14,9 +14,11 @@ export function initHeader() {
   setupScrollState(header);
   setupSmoothScroll();
   setupMobileNav();
+  // Active link tracking uses IntersectionObserver — no GSAP needed,
+  // so run it immediately rather than waiting for the CDN scripts.
+  setupActiveLinkTracking();
   whenGsapReady(() => {
     animateLogoIn();
-    setupActiveLinkTracking();
   });
 }
 
@@ -180,27 +182,61 @@ function setupSmoothScroll() {
 }
 
 /* ----- Active link tracking via ScrollTrigger ----- */
+/* ----- Active link tracking via IntersectionObserver -----
+   We use IntersectionObserver with a narrow rootMargin so the active link
+   reflects the section whose top has just slipped below the fixed header
+   into the upper-quarter of the viewport. This is more accurate than the
+   previous ScrollTrigger "top center / bottom center" approach which broke
+   when a section was shorter than half the viewport height or when the
+   user smooth-scrolled and the viewport center spilled into the next
+   section.
+
+   Handles BOTH the desktop nav pill links and the mobile drawer links so
+   the underline stays in sync regardless of which menu is in use. */
 function setupActiveLinkTracking() {
-  const links = document.querySelectorAll(".nav-pill__link[href^='#']");
-  if (!links.length || !window.ScrollTrigger) return;
+  const links = document.querySelectorAll(
+    ".nav-pill__link[href^='#'], .mobile-nav__link[href^='#']"
+  );
+  if (!links.length || !("IntersectionObserver" in window)) return;
 
+  // Map section ID → array of nav links pointing to it (pill + drawer)
+  const idToLinks = new Map();
   links.forEach((link) => {
-    const id = link.getAttribute("href");
-    const section = document.querySelector(id);
-    if (!section) return;
-
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top center",
-      end: "bottom center",
-      onToggle: (self) => {
-        if (self.isActive) {
-          links.forEach((l) => l.classList.remove("is-active"));
-          link.classList.add("is-active");
-        }
-      },
-    });
+    const id = (link.getAttribute("href") || "").slice(1);
+    if (!id) return;
+    if (!idToLinks.has(id)) idToLinks.set(id, []);
+    idToLinks.get(id).push(link);
   });
+
+  const sections = Array.from(idToLinks.keys())
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  const setActive = (id) => {
+    const sectionLinks = idToLinks.get(id);
+    if (!sectionLinks) return;
+    links.forEach((l) => l.classList.remove("is-active"));
+    sectionLinks.forEach((l) => l.classList.add("is-active"));
+  };
+
+  // The "active" band is the strip just below the header — from 15% down
+  // to 25% of viewport. A section is intersecting this band when its top
+  // has scrolled into the upper portion of the viewport — which is the
+  // intuitive "you're reading this section now" position.
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    {
+      rootMargin: "-15% 0px -75% 0px",
+      threshold: 0,
+    }
+  );
+
+  sections.forEach((s) => observer.observe(s));
 }
 
 /* ----- helper: wait for GSAP ----- */
