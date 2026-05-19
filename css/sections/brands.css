@@ -482,6 +482,13 @@
   }
 }
 
+@media (max-width: 572px) {
+  .brands__eyebrow {
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+}
+
 @media (max-width: 566px) {
   .brands__eyebrow {
     line-height: 22px;

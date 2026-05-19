@@ -11,6 +11,31 @@
 
     <title>Terms &amp; Conditions — BiSSMiXi</title>
 
+    <!-- Disable scroll restoration; always start at top; defer any hash
+         scroll until after load so ScrollTrigger initializes cleanly. -->
+    <script>
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+      var __deferredHash = window.location.hash;
+      window.scrollTo(0, 0);
+      if (__deferredHash) {
+        try {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        } catch (_e) {}
+        window.addEventListener("load", function () {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              var target = document.querySelector(__deferredHash);
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            });
+          });
+        });
+      }
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />

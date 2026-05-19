@@ -4,6 +4,16 @@
    and dynamically loads per-section modules as they're added.
    ========================================================================== */
 
+/* scrollRestoration + initial scrollTo(0,0) are handled by the inline
+   <head> script (so they run before the browser restores scroll). Here
+   we only refresh ScrollTrigger once everything is fully loaded so any
+   late-arriving images don't leave pin offsets stale. */
+window.addEventListener("load", () => {
+  requestAnimationFrame(() => {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  });
+});
+
 // Wait for GSAP CDN scripts to finish loading
 function whenGsapReady(callback) {
   if (window.gsap && window.ScrollTrigger) {
