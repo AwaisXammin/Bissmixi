@@ -446,4 +446,8 @@
   #about01 .about01__inner .about01__sub {
     padding: 0 3%;
   }
+
+  .about01 {
+    padding-top: 75px !important;
+  }
 }

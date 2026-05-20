@@ -126,6 +126,14 @@
   }
 }
 
+
+@media (max-width: 672px) {
+  #about {
+    padding-top: 115px;
+  }
+}
+
+
 @media (max-width: 480px) {
   .about { padding-block: 48px; }
   .about__eyebrow { font-size: 13px; letter-spacing: 0.3em; }

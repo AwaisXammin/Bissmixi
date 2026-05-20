@@ -78,6 +78,7 @@
   background-clip: text;
   color: var(--color-background);
   transition: background-position var(--duration-slow) var(--ease-out);
+  text-transform: none;
 }
 
 /* Hover: animate gradient shimmer across letters */
