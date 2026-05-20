@@ -562,6 +562,10 @@
     font-size: clamp(80px, 26vw, 200px);
   }
 
+  .hero__scroll-btn {
+    transform: scale(0.6) !important;
+  }
+
   /* Tighter hero on mobile — content sits closer to the product image */
   #hero {
     padding: 140px 0px 32px !important;
@@ -571,6 +575,9 @@
   }
   .hero__content {
     gap: clamp(20px, 4vw, 32px);
+  }
+  .hero__products {
+    bottom: 70px;
   }
 }
 
@@ -587,12 +594,40 @@
 }
 
 @media (max-width: 480px) {
-  /* Smallest phones — keep hero compact so it doesn't feel half-empty */
+  /* Smallest phones — keep hero compact.
+     Note: each showcase PNG is the full hero composition where the tubes
+     occupy the BOTTOM ~30% of the image — so the wrapper's TOP ~70% is
+     transparent "empty" PNG area. To minimize the gap between the CTA
+     button and the visible tubes, we shrink BOTH the wrapper and the
+     hero min-height. */
   #hero {
     padding: 120px 0 24px !important;
   }
   .hero {
-    min-height: max(760px, 90vh);
+    /* Comfortable middle ground: enough breathing room between button
+       and tubes without an empty stretch */
+    min-height: max(660px, 84vh);
+  }
+  .hero__content {
+    gap: 18px;
+  }
+  .hero__products {
+    /* Slightly larger than the "too tight" pass — restores a bit of
+       transparent buffer above the tubes for breathing room */
+    width: clamp(240px, 60vw, 300px);
+  }
+}
+
+/* Narrower phones (≤ 430px e.g. iPhone Plus, Pixel large) — narrower
+   widths cause the headline to wrap into more lines, pushing the button
+   lower and squeezing the tubes against it. Bump the hero floor + the
+   wrapper a touch to keep the breathing room consistent. */
+@media (max-width: 430px) {
+  .hero {
+    min-height: max(710px, 88vh);
+  }
+  .hero__products {
+    width: clamp(240px, 66vw, 290px);
   }
   .hero__bubble--lg {
     width: 34px;
